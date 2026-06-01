@@ -1,8 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
-//#include "Guerrero.h" // Se asume que ya tienen estas clases creadas
-//#include "Mago.h"
-//#include "Enemigo.h"
+#include "Personaje.h"
+#include "Enemigo.h"
+#include "Guerrero.h"
+#include "Mago.h"
 
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
@@ -19,8 +20,10 @@ int main() {
 
     // Variables de estado y puntero polimórfico para el héroe
     EstadoJuego estadoActual = MENU_PRINCIPAL;
-//    Personaje* heroe = nullptr; // Puntero de la clase base
-    //Enemigo esqueleto(80, 15, 5, "Esqueleto Raso"); // Vida, ataque, defensa, nombre
+
+
+    Personaje* heroe = nullptr; // Puntero de la clase base
+    Enemigo esqueletoNivel1("Esqueleto", 100, 15, 5, 50);
 
     // --- CARGA DE FUENTES Y TEXTOS (Para el menú rápido) ---
     sf::Font fuente;
@@ -68,19 +71,19 @@ int main() {
 
                     case SELECCION_PERSONAJE:
                         if (event.key.code == sf::Keyboard::G) {
-                           // heroe = new Guerrero(); // Instancia dinámica de Guerrero
+                            heroe = new Guerrero("Guerrero", 150, 20, 10); // Instancia dinámica de Guerrero
                             estadoActual = COMBATE_NIVEL_1;
                         }
                         if (event.key.code == sf::Keyboard::M) {
-                           // heroe = new Mago(); // Instancia dinámica de Mago
+                            heroe = new Mago("Mago", 100, 30, 5); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
                         }
                         break;
 
                     case COMBATE_NIVEL_1:
-                        if (event.key.code == sf::Keyboard::A) {
+                        if (event.key.code == sf::Keyboard::A && heroe != nullptr){
                             // 1. Turno del Héroe: Ataca al enemigo
-                         //   esqueleto.recibirDano(heroe->getAtaque());
+                            esqueletoNivel1.recibirDanio(heroe->getAtaque());
 
                             // 2. Turno del Enemigo: Si sigue vivo, responde
                           //  if (esqueleto.estaVivo()) {
@@ -161,8 +164,9 @@ int main() {
     }
 
     // Limpieza de memoria al cerrar
-   // if (heroe != nullptr) delete heroe;
-
+    if (heroe != nullptr){
+        delete heroe;
+    }
     return 0;
 
 }
