@@ -4,7 +4,7 @@
 #include "Enemigo.h"
 #include "Guerrero.h"
 #include "Mago.h"
-
+///TOMAS
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
     MENU_PRINCIPAL,
