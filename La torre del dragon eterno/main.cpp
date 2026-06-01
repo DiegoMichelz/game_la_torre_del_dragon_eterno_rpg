@@ -19,8 +19,8 @@ int main() {
 
     // Variables de estado y puntero polimórfico para el héroe
     EstadoJuego estadoActual = MENU_PRINCIPAL;
-    Personaje* heroe = nullptr; // Puntero de la clase base
-    Enemigo esqueleto(80, 15, 5, "Esqueleto Raso"); // Vida, ataque, defensa, nombre
+//    Personaje* heroe = nullptr; // Puntero de la clase base
+    //Enemigo esqueleto(80, 15, 5, "Esqueleto Raso"); // Vida, ataque, defensa, nombre
 
     // --- CARGA DE FUENTES Y TEXTOS (Para el menú rápido) ---
     sf::Font fuente;
@@ -30,7 +30,7 @@ int main() {
 
     sf::Text txtTitulo("LA TORRE DEL DRAGON ETERNO", fuente, 35);
     txtTitulo.setPosition(150, 100);
-    txtTitulo.setFillColor(sf::Color::Gold);
+    txtTitulo.setFillColor(sf::Color::Yellow);
 
     sf::Text txtOpciones("Presione 1 para Jugar\nPresione ESC para Salir", fuente, 24);
     txtOpciones.setPosition(250, 300);
@@ -68,11 +68,11 @@ int main() {
 
                     case SELECCION_PERSONAJE:
                         if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero(); // Instancia dinámica de Guerrero
+                           // heroe = new Guerrero(); // Instancia dinámica de Guerrero
                             estadoActual = COMBATE_NIVEL_1;
                         }
                         if (event.key.code == sf::Keyboard::M) {
-                            heroe = new Mago(); // Instancia dinámica de Mago
+                           // heroe = new Mago(); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
                         }
                         break;
@@ -80,19 +80,19 @@ int main() {
                     case COMBATE_NIVEL_1:
                         if (event.key.code == sf::Keyboard::A) {
                             // 1. Turno del Héroe: Ataca al enemigo
-                            esqueleto.recibirDano(heroe->getAtaque());
+                         //   esqueleto.recibirDano(heroe->getAtaque());
 
                             // 2. Turno del Enemigo: Si sigue vivo, responde
-                            if (esqueleto.estaVivo()) {
-                                heroe->recibirDano(esqueleto.getAtaque());
-                            }
+                          //  if (esqueleto.estaVivo()) {
+                          //      heroe->recibirDano(esqueleto.getAtaque());
+                          //  }
 
                             // 3. Verificar condiciones de fin de combate
-                            if (!esqueleto.estaVivo()) {
+                          //  if (!esqueleto.estaVivo()) {
                                 estadoActual = VICTORIA_PISO;
-                            } else if (!heroe->estaVivo()) {
-                                estadoActual = GAME_OVER;
-                            }
+                          //  } else if (!heroe->estaVivo()) {
+                          //      estadoActual = GAME_OVER;
+                          //  }
                         }
                         break;
 
@@ -101,23 +101,23 @@ int main() {
                         if (event.key.code == sf::Keyboard::Enter) {
                             // Reiniciar juego al menú
                             estadoActual = MENU_PRINCIPAL;
-                            if (heroe != nullptr) {
-                                delete heroe;
-                                heroe = nullptr;
+//                            if (heroe != nullptr) {
+ //                               delete heroe;
+ //                               heroe = nullptr;
                             }
                             // Resetear enemigo también acá...
                         }
                         break;
                 }
             }
-        }
+
 
         // --- ACTUALIZAR LÓGICA DE TEXTOS EN COMBATE ---
-        if (estadoActual == COMBATE_NIVEL_1 && heroe != nullptr) {
-            std::string info = "HEROE: Vida " + std::to_string(heroe->getVida()) + "\n\n" +
-                               "ENEMIGO: " + esqueleto.getNombre() + " | Vida " + std::to_string(esqueleto.getVida());
-            txtInfoCombate.setString(info);
-        }
+ //       if (estadoActual == COMBATE_NIVEL_1 && heroe != nullptr) {
+ //           std::string info = "HEROE: Vida " + std::to_string(heroe->getVida()) + "\n\n" +
+  //                             "ENEMIGO: " + esqueleto.getNombre() + " | Vida " + std::to_string(esqueleto.getVida());
+  //          txtInfoCombate.setString(info);
+
 
         // --- RENDERIZADO (DIBUJAR) SEGÚN EL ESTADO ---
         window.clear(sf::Color(30, 30, 30)); // Fondo gris oscuro
@@ -161,13 +161,9 @@ int main() {
     }
 
     // Limpieza de memoria al cerrar
-    if (heroe != nullptr) delete heroe;
+   // if (heroe != nullptr) delete heroe;
 
     return 0;
-}
-
-
-int main()
-{
 
 }
+
