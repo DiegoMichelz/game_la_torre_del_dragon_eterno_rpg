@@ -46,7 +46,7 @@ int main() {
     sf::Text txtInfoCombate("", fuente, 20);
     txtInfoCombate.setPosition(50, 50);
 
-    sf::Text txtControles("Presione [A] para Atacar", fuente, 18);
+    sf::Text txtControles("Presione [A] para Atacar, [B] Especial, [C] Curar", fuente, 18);
     txtControles.setPosition(50, 500);
     txtControles.setFillColor(sf::Color::Green);
 
