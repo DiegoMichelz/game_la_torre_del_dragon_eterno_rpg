@@ -4,7 +4,8 @@
 #include "Enemigo.h"
 #include "Guerrero.h"
 #include "Mago.h"
-///TOMAS
+#include "Esqueleto.h"
+
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
     MENU_PRINCIPAL,
@@ -22,8 +23,8 @@ int main() {
     EstadoJuego estadoActual = MENU_PRINCIPAL;
 
 
-    Personaje* heroe = nullptr; // Puntero de la clase base
-    Enemigo esqueletoNivel1("Esqueleto", 100, 15, 5, 50);
+    Heroe* heroe = nullptr; // Puntero de la clase base
+    Enemigo* enemigoActual = nullptr;
 
     // --- CARGA DE FUENTES Y TEXTOS (Para el menú rápido) ---
     sf::Font fuente;
@@ -45,7 +46,7 @@ int main() {
     sf::Text txtInfoCombate("", fuente, 20);
     txtInfoCombate.setPosition(50, 50);
 
-    sf::Text txtControles("Presione [A] para Atacar", fuente, 18);
+    sf::Text txtControles("Presione [A] para Atacar, [B] Especial, [C] Curar", fuente, 18);
     txtControles.setPosition(50, 500);
     txtControles.setFillColor(sf::Color::Green);
 
@@ -73,31 +74,53 @@ int main() {
                         if (event.key.code == sf::Keyboard::G) {
                             heroe = new Guerrero("Guerrero", 150, 20, 10); // Instancia dinámica de Guerrero
                             estadoActual = COMBATE_NIVEL_1;
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                         }
                         if (event.key.code == sf::Keyboard::M) {
                             heroe = new Mago("Mago", 100, 30, 5); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                         }
                         break;
 
                     case COMBATE_NIVEL_1:
-                        if (event.key.code == sf::Keyboard::A && heroe != nullptr){
-                            // 1. Turno del Héroe: Ataca al enemigo
-                            esqueletoNivel1.recibirDanio(heroe->getAtaque());
+                        if (heroe != nullptr && enemigoActual != nullptr) {
 
-                            // 2. Turno del Enemigo: Si sigue vivo, responde
-                          //  if (esqueleto.estaVivo()) {
-                          //      heroe->recibirDano(esqueleto.getAtaque());
-                          //  }
+                            // 1. Manejo de acciones (A, B, C)
+                            if (event.type == sf::Event::KeyPressed) {
 
-                            // 3. Verificar condiciones de fin de combate
-                          //  if (!esqueleto.estaVivo()) {
-                                estadoActual = VICTORIA_PISO;
-                          //  } else if (!heroe->estaVivo()) {
-                          //      estadoActual = GAME_OVER;
-                          //  }
+                                if (event.key.code == sf::Keyboard::A) {
+                                    // ATAQUE NORMAL
+                                enemigoActual->recibirDanio(heroe->getAtaque());
+                                }
+                                else if (event.key.code == sf::Keyboard::B) {
+                                    // ATAQUE ESPECIAL (Polimorfismo)
+                                    // Asegurate de que todos tus personajes tengan este método virtual
+                                heroe->ataqueEspecial(enemigoActual);
+                                }
+                                else if (event.key.code == sf::Keyboard::C) {
+                                    // CURACIÓN (Polimorfismo)
+                                heroe->curarse();
+                                }
+
+                                    // 2. Turno del Enemigo (Respuesta automática post-acción)
+                                if (enemigoActual->estaVivo()) {
+                                    heroe->recibirDanio(enemigoActual->getAtaque());
+                                }
+
+                                // 3. Verificar condiciones de fin de combate
+                                if (!enemigoActual->estaVivo()) {
+                                    estadoActual = VICTORIA_PISO;
+                                    // Importante: liberar memoria si el enemigo murió
+                                    delete enemigoActual;
+                                    enemigoActual = nullptr;
+                                }
+                                else if (!heroe->estaVivo()) {
+                                    estadoActual = GAME_OVER;
+                                }
+                            }
                         }
-                        break;
+                    break;
 
                     case VICTORIA_PISO:
                     case GAME_OVER:

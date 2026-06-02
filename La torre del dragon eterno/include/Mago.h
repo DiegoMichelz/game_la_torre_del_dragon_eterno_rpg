@@ -8,4 +8,6 @@ class Mago : public Heroe {
         // Método especial del Mago
         void lanzarBolaDeFuego(Personaje &objetivo);
         void mostrarEstadisticas() override;
+        void curarse() override;
+        void ataqueEspecial(Enemigo* objetivo) override;
 };

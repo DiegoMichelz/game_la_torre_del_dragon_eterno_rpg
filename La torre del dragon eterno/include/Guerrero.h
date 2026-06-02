@@ -7,6 +7,8 @@ class Guerrero : public Heroe{
 
         void ejecutarGolpeFeroz(Personaje &objetivo);
         void mostrarEstadisticas() override;
+        void curarse() override;
+        void ataqueEspecial(Enemigo* objetivo) override;
 
 };
 
