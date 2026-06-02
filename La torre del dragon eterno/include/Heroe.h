@@ -1,6 +1,7 @@
 #pragma once
 #include "Personaje.h"
 
+class Enemigo; //declaracion anticipada
 
 class Heroe : public Personaje {
     protected:
@@ -12,4 +13,6 @@ class Heroe : public Personaje {
         virtual ~Heroe();
 
         void ganarExperiencia(int cant);
+        virtual void curarse() = 0;
+        virtual void ataqueEspecial(Enemigo* objetivo) = 0;
 };
