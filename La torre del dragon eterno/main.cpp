@@ -5,7 +5,7 @@
 #include "Guerrero.h"
 #include "Mago.h"
 #include "Esqueleto.h"
-
+///esta es una prueba para actualizar todo
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
     MENU_PRINCIPAL,
