@@ -26,6 +26,30 @@ int main() {
     Heroe* heroe = nullptr; // Puntero de la clase base
     Enemigo* enemigoActual = nullptr;
 
+   // --- CARGA DE TEXTURAS (Fuera del bucle while) ---
+    sf:: Sprite fondolv1;
+    sf::Texture texFondo;
+    if (!texFondo.loadFromFile("fondo_nivel1.png")) {
+        std::cout << "¡ERROR: No encuentro 'fondo_nivel1.png'!" << std::endl;
+    }
+    fondolv1.setTexture(texFondo);
+
+    sf::Sprite Magobase;
+    sf::Texture texMago;
+    if (!texMago.loadFromFile("mago_sprite.png")) {
+        std::cout << "¡ERROR: No encuentro 'mago_sprite.png'!" << std::endl;
+    }
+    Magobase.setTexture(texMago);
+    Magobase.setPosition(100.f, 150.f);
+
+    sf::Sprite Esqueleto1_base;
+    sf::Texture texEsque1eto1;
+    if (!texEsque1eto1.loadFromFile("esqueleto1_sprite.png")) {
+        std::cout << "¡ERROR: No encuentro 'mago_sprite.png'!" << std::endl;
+    }
+    Esqueleto1_base.setTexture(texEsque1eto1);
+    Esqueleto1_base.setPosition(550.f, 95.f);
+
     // --- CARGA DE FUENTES Y TEXTOS (Para el menú rápido) ---
     sf::Font fuente;
     if (!fuente.loadFromFile("arial.ttf")) {
@@ -84,7 +108,7 @@ int main() {
                         break;
 
                     case COMBATE_NIVEL_1:
-                        if (heroe != nullptr && enemigoActual != nullptr) {
+                        if (heroe != nullptr && enemigoActual != nullptr){
 
                             // 1. Manejo de acciones (A, B, C)
                             if (event.type == sf::Event::KeyPressed) {
@@ -146,7 +170,7 @@ int main() {
 
 
         // --- RENDERIZADO (DIBUJAR) SEGÚN EL ESTADO ---
-        window.clear(sf::Color(30, 30, 30)); // Fondo gris oscuro
+        window.clear(sf::Color::Blue); // Fondo gris oscuro
 
         switch (estadoActual) {
             case MENU_PRINCIPAL:
@@ -159,6 +183,9 @@ int main() {
                 break;
 
             case COMBATE_NIVEL_1:
+                window.draw(fondolv1);
+                window.draw(Magobase);
+                window.draw(Esqueleto1_base);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 // ACÁ MÁS ADELANTE AGREGAN: window.draw(spriteHeroe) y window.draw(spriteEnemigo)
