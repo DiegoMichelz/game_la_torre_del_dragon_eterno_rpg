@@ -40,7 +40,7 @@ int main() {
         std::cout << "¡ERROR: No encuentro 'mago_sprite.png'!" << std::endl;
     }
     Magobase.setTexture(texMago);
-    Magobase.setPosition(100.f, 150.f);
+    Magobase.setPosition(65.f, 85.f);
 
     sf::Sprite Esqueleto1_base;
     sf::Texture texEsque1eto1;
