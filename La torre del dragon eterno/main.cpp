@@ -71,8 +71,21 @@ int main() {
     txtInfoCombate.setPosition(50, 50);
 
     sf::Text txtControles("Presione [A] para Atacar, [B] Especial, [C] Curar", fuente, 18);
-    txtControles.setPosition(50, 500);
+    txtControles.setPosition(50, 550);
     txtControles.setFillColor(sf::Color::Green);
+
+   // --- DEFINICIÓN DE TEXTO DE VIDA ---
+    sf::Text txtVida;
+    txtVida.setFont(fuente);
+    txtVida.setCharacterSize(20);
+    txtVida.setFillColor(sf::Color::Yellow);
+    txtVida.setPosition(30.f, 10.f);
+
+    sf::Text txtVidaEn;
+    txtVidaEn.setFont(fuente);
+    txtVidaEn.setCharacterSize(20);
+    txtVidaEn.setFillColor(sf::Color::Yellow);
+    txtVidaEn.setPosition(600.f, 10.f);
 
     // GAME LOOP
     while (window.isOpen()) {
@@ -101,9 +114,9 @@ int main() {
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                         }
                         if (event.key.code == sf::Keyboard::M) {
-                            heroe = new Mago("Mago", 100, 30, 5); // Instancia dinámica de Mago
+                            heroe = new Mago("Mago", 120, 30, 5); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
-                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
                         }
                         break;
 
@@ -188,6 +201,14 @@ int main() {
                 window.draw(Esqueleto1_base);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
+
+                txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                window.draw(txtVida);
+
+                txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                window.draw(txtVidaEn);
+
+
                 // ACÁ MÁS ADELANTE AGREGAN: window.draw(spriteHeroe) y window.draw(spriteEnemigo)
                 break;
 

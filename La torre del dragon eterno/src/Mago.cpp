@@ -2,6 +2,7 @@
 #include "Enemigo.h"
 #include <iostream>
 
+
 Mago::Mago(std::string nom, int hp, int atk, int def) : Heroe(nom, hp, atk, def) {
 
 }
@@ -15,6 +16,7 @@ void Mago::ataqueEspecial(Enemigo* objetivo){
 void Mago::mostrarEstadisticas() {
     std::cout << "--- MAGO ---" << std::endl;
     std::cout << "Nombre: " << nombre << " | Vida: " << vidaActual << std::endl;
+
 }
 
 void Mago::curarse() {

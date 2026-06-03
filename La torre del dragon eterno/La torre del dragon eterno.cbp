@@ -44,8 +44,8 @@
 		</Compiler>
 		<Linker>
 			<Add library="SFML/lib/libsfml-graphics.a" />
-			<Add library="SFML/lib/libsfml-window.a" />
 			<Add library="SFML/lib/libsfml-system.a" />
+			<Add library="SFML/lib/libsfml-window.a" />
 			<Add directory="SFML/lib" />
 		</Linker>
 		<Unit filename="cb.bmp" />
