@@ -5,7 +5,6 @@
 #include "Guerrero.h"
 #include "Mago.h"
 #include "Esqueleto.h"
-///esta es una prueba para actualizar todo las cabecereas y cpp
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
     MENU_PRINCIPAL,
@@ -36,11 +35,16 @@ int main() {
 
     sf::Sprite Magobase;
     sf::Texture texMago;
-    if (!texMago.loadFromFile("mago_sprite.png")) {
-        std::cout << "¡ERROR: No encuentro 'mago_sprite.png'!" << std::endl;
-    }
+    texMago.loadFromFile("mago_sprite.png");
     Magobase.setTexture(texMago);
     Magobase.setPosition(65.f, 85.f);
+
+    sf::Sprite Guerrerobase;
+    sf::Texture texGuerre;
+    texGuerre.loadFromFile("Guerrero_sprite.png");
+    Guerrerobase.setTexture(texGuerre);
+    Guerrerobase.setPosition(65.f, 85.f);
+
 
     sf::Sprite Esqueleto1_base;
     sf::Texture texEsque1eto1;
@@ -87,6 +91,10 @@ int main() {
     txtVidaEn.setFillColor(sf::Color::Yellow);
     txtVidaEn.setPosition(600.f, 10.f);
 
+    sf::Text txtVic("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.", fuente, 30);
+    txtVic.setPosition(150, 250);
+    txtVic.setFillColor(sf::Color::Green);
+
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
@@ -129,6 +137,16 @@ int main() {
                                 if (event.key.code == sf::Keyboard::A) {
                                     // ATAQUE NORMAL
                                 enemigoActual->recibirDanio(heroe->getAtaque());
+                                    if(enemigoActual->estaVivo()){
+                                        heroe->recibirDanio(enemigoActual->getAtaque());
+                                        txtInfoCombate.setString("El enemigo te ataco!");
+                                    }else{
+                                        txtInfoCombate.setString("¡Enemigo derrotado!");
+                                        // delay o esperar que el usuario presione una tecla
+                                        estadoActual = VICTORIA_PISO;
+                                        delete enemigoActual;
+                                        enemigoActual = nullptr;
+                                    }
                                 }
                                 else if (event.key.code == sf::Keyboard::B) {
                                     // ATAQUE ESPECIAL (Polimorfismo)
@@ -160,6 +178,14 @@ int main() {
                     break;
 
                     case VICTORIA_PISO:
+                        if (event.key.code == sf::Keyboard::Enter) {
+                            // 1. Limpiar los objetos del combate anterior (si no lo hiciste antes)
+                            if (enemigoActual != nullptr) {
+                            delete enemigoActual;
+                            enemigoActual = nullptr;
+                            }
+                        }
+                        break;
                     case GAME_OVER:
                         if (event.key.code == sf::Keyboard::Enter) {
                             // Reiniciar juego al menú
@@ -197,26 +223,28 @@ int main() {
 
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
+
+                //window.draw(Guerrerobase);
+
                 window.draw(Magobase);
+
+
                 window.draw(Esqueleto1_base);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
-
+                if (heroe != nullptr){
                 txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
                 window.draw(txtVida);
-
+                }
+                if (enemigoActual != nullptr){
                 txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                 window.draw(txtVidaEn);
+                }
 
-
-                // ACÁ MÁS ADELANTE AGREGAN: window.draw(spriteHeroe) y window.draw(spriteEnemigo)
                 break;
 
             case VICTORIA_PISO:
                 {
-                    sf::Text txtVic("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.", fuente, 30);
-                    txtVic.setPosition(150, 250);
-                    txtVic.setFillColor(sf::Color::Green);
                     window.draw(txtVic);
                 }
                 break;
