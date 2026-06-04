@@ -25,6 +25,8 @@ int main() {
     Heroe* heroe = nullptr; // Puntero de la clase base
     Enemigo* enemigoActual = nullptr;
 
+    bool seleccion;
+
    // --- CARGA DE TEXTURAS (Fuera del bucle while) ---
     sf:: Sprite fondolv1;
     sf::Texture texFondo;
@@ -120,12 +122,15 @@ int main() {
                             heroe = new Guerrero("Guerrero", 150, 20, 10); // Instancia dinámica de Guerrero
                             estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
+                            seleccion=0;
                         }
                         if (event.key.code == sf::Keyboard::M) {
                             heroe = new Mago("Mago", 120, 30, 5); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
+                            seleccion=1;
                         }
+
                         break;
 
                     case COMBATE_NIVEL_1:
@@ -143,21 +148,25 @@ int main() {
                                     }else{
                                         txtInfoCombate.setString("¡Enemigo derrotado!");
                                         // delay o esperar que el usuario presione una tecla
-                                        estadoActual = VICTORIA_PISO;
-                                        delete enemigoActual;
-                                        enemigoActual = nullptr;
+                                        //estadoActual = VICTORIA_PISO;
+                                        //delete enemigoActual;
+                                        //enemigoActual = nullptr;
                                     }
                                 }
                                 else if (event.key.code == sf::Keyboard::B) {
                                     // ATAQUE ESPECIAL (Polimorfismo)
-                                    // Asegurate de que todos tus personajes tengan este método virtual
                                 heroe->ataqueEspecial(enemigoActual);
+                                if(enemigoActual->estaVivo()){
+                                    heroe->recibirDanio(enemigoActual->getAtaque());
+                                    txtInfoCombate.setString("El enemigo te ataco!");
+                                }else{
+                                    txtInfoCombate.setString("¡Enemigo derrotado!");
+                                }
                                 }
                                 else if (event.key.code == sf::Keyboard::C) {
                                     // CURACIÓN (Polimorfismo)
                                 heroe->curarse();
                                 }
-
                                     // 2. Turno del Enemigo (Respuesta automática post-acción)
                                 if (enemigoActual->estaVivo()) {
                                     heroe->recibirDanio(enemigoActual->getAtaque());
@@ -179,11 +188,7 @@ int main() {
 
                     case VICTORIA_PISO:
                         if (event.key.code == sf::Keyboard::Enter) {
-                            // 1. Limpiar los objetos del combate anterior (si no lo hiciste antes)
-                            if (enemigoActual != nullptr) {
-                            delete enemigoActual;
-                            enemigoActual = nullptr;
-                            }
+                            estadoActual=MENU_PRINCIPAL;
                         }
                         break;
                     case GAME_OVER:
@@ -224,10 +229,10 @@ int main() {
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
 
-                //window.draw(Guerrerobase);
-
-                window.draw(Magobase);
-
+                if(seleccion==1){
+                    window.draw(Magobase);
+                }else{ window.draw(Guerrerobase);
+                }
 
                 window.draw(Esqueleto1_base);
                 window.draw(txtInfoCombate);
