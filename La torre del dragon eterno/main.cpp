@@ -97,13 +97,16 @@ int main() {
     txtVic.setPosition(150, 250);
     txtVic.setFillColor(sf::Color::Green);
 
+    sf::Clock clock;
+    bool esperandoContraataque = false;
+
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed)
+            if (event.type == sf::Event::Closed){
                 window.close();
-
+            }
             // --- PROCESAR ENTRADAS DE TECLADO SEGÚN EL ESTADO ---
             if (event.type == sf::Event::KeyPressed) {
 
@@ -141,22 +144,31 @@ int main() {
 
                                 if (event.key.code == sf::Keyboard::A) {
                                     // ATAQUE NORMAL
-                                enemigoActual->recibirDanio(heroe->getAtaque());
-                                    if(enemigoActual->estaVivo()){
+                                    enemigoActual->recibirDanio(heroe->getAtaque());
+                                    if(enemigoActual->estaVivo()) {
+                                    esperandoContraataque = true;
+                                    clock.restart(); // Iniciamos la cuenta desde cero
+                                    txtInfoCombate.setString("Espero el contraataque...");
+                                    }else if(enemigoActual->estaVivo()){
                                         heroe->recibirDanio(enemigoActual->getAtaque());
                                         txtInfoCombate.setString("El enemigo te ataco!");
-                                    }else{
-                                        txtInfoCombate.setString("¡Enemigo derrotado!");
+                                    }
+                                    else{txtInfoCombate.setString("¡Enemigo derrotado!");
                                         // delay o esperar que el usuario presione una tecla
                                         //estadoActual = VICTORIA_PISO;
                                         //delete enemigoActual;
                                         //enemigoActual = nullptr;
                                     }
+
                                 }
                                 else if (event.key.code == sf::Keyboard::B) {
                                     // ATAQUE ESPECIAL (Polimorfismo)
                                 heroe->ataqueEspecial(enemigoActual);
-                                if(enemigoActual->estaVivo()){
+                                if(enemigoActual->estaVivo()) {
+                                    esperandoContraataque = true;
+                                    clock.restart(); // Iniciamos la cuenta desde cero
+                                    txtInfoCombate.setString("Espero el contraataque...");
+                                }else if(enemigoActual->estaVivo()){
                                     heroe->recibirDanio(enemigoActual->getAtaque());
                                     txtInfoCombate.setString("El enemigo te ataco!");
                                 }else{
@@ -166,10 +178,10 @@ int main() {
                                 else if (event.key.code == sf::Keyboard::C) {
                                     // CURACIÓN (Polimorfismo)
                                 heroe->curarse();
-                                }
-                                    // 2. Turno del Enemigo (Respuesta automática post-acción)
-                                if (enemigoActual->estaVivo()) {
-                                    heroe->recibirDanio(enemigoActual->getAtaque());
+                                esperandoContraataque = true;
+                                clock.restart(); // Iniciamos la cuenta desde cero
+                                txtInfoCombate.setString("Espero el contraataque...");
+                                heroe->recibirDanio(enemigoActual->getAtaque());
                                 }
 
                                 // 3. Verificar condiciones de fin de combate
@@ -184,7 +196,7 @@ int main() {
                                 }
                             }
                         }
-                    break;
+                        break;
 
                     case VICTORIA_PISO:
                         if (event.key.code == sf::Keyboard::Enter) {
@@ -198,13 +210,21 @@ int main() {
 //                            if (heroe != nullptr) {
  //                               delete heroe;
  //                               heroe = nullptr;
-                            }
-                            // Resetear enemigo también acá...
                         }
+                            // Resetear enemigo también acá...
+
                         break;
                 }
             }
-
+        }
+        if (esperandoContraataque) {
+            if (clock.getElapsedTime().asSeconds() >= 2.0f) {
+            // Ya pasaron 2 segundos, el enemigo ataca ahora
+            heroe->recibirDanio(enemigoActual->getAtaque());
+            txtInfoCombate.setString("El enemigo te ataca!");
+            esperandoContraataque = false; // Terminó la espera
+            }
+        }
 
         // --- ACTUALIZAR LÓGICA DE TEXTOS EN COMBATE ---
  //       if (estadoActual == COMBATE_NIVEL_1 && heroe != nullptr) {
@@ -249,29 +269,28 @@ int main() {
                 break;
 
             case VICTORIA_PISO:
-                {
-                    window.draw(txtVic);
-                }
+
+                window.draw(txtVic);
+
                 break;
 
             case GAME_OVER:
-                {
-                    sf::Text txtGov("GAME OVER.\nPresione ENTER para reintentar.", fuente, 30);
-                    txtGov.setPosition(150, 250);
-                    txtGov.setFillColor(sf::Color::Red);
-                    window.draw(txtGov);
-                }
+
+                sf::Text txtGov("GAME OVER.\nPresione ENTER para reintentar.", fuente, 30);
+                txtGov.setPosition(150, 250);
+                txtGov.setFillColor(sf::Color::Red);
+                window.draw(txtGov);
+
                 break;
         }
-
         window.display();
-    }
 
+    }
     // Limpieza de memoria al cerrar
     if (heroe != nullptr){
         delete heroe;
     }
     return 0;
-
 }
+
 
