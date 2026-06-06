@@ -32,11 +32,19 @@ int main() {
     int seleccionEnem=0;
 
    // --- CARGA DE TEXTURAS (Fuera del bucle while) ---
+    sf:: Sprite fondoMenu;
+    sf::Texture texFondoMenu;
+    texFondoMenu.loadFromFile("FondoMenu.png");
+    fondoMenu.setTexture(texFondoMenu);
+
+    sf:: Sprite FondoSeleccionP;
+    sf::Texture textFondoSeleccionP;
+    textFondoSeleccionP.loadFromFile("SeleccionDePersonaje.png");
+    FondoSeleccionP.setTexture(textFondoSeleccionP);
+
     sf:: Sprite fondolv1;
     sf::Texture texFondo;
-    if (!texFondo.loadFromFile("fondo_nivel1.png")) {
-        std::cout << "¡ERROR: No encuentro 'fondo_nivel1.png'!" << std::endl;
-    }
+    texFondo.loadFromFile("fondo_nivel1.png");
     fondolv1.setTexture(texFondo);
 
     sf::Sprite Magobase;
@@ -75,13 +83,6 @@ int main() {
     if (!fuente.loadFromFile("arial.ttf")) {
         // Manejar error si no encuentra la fuente
     }
-
-    sf::Text txtTitulo("LA TORRE DEL DRAGON ETERNO", fuente, 35);
-    txtTitulo.setPosition(150, 100);
-    txtTitulo.setFillColor(sf::Color::Yellow);
-
-    sf::Text txtOpciones("Presione 1 para Jugar\nPresione ESC para Salir", fuente, 24);
-    txtOpciones.setPosition(250, 300);
 
     sf::Text txtSeleccion("Seleccione Clase:\n[G] Guerrero\n[M] Mago", fuente, 24);
     txtSeleccion.setPosition(250, 250);
@@ -267,12 +268,11 @@ int main() {
 
         switch (estadoActual) {
             case MENU_PRINCIPAL:
-                window.draw(txtTitulo);
-                window.draw(txtOpciones);
+                window.draw(fondoMenu);
                 break;
 
             case SELECCION_PERSONAJE:
-                window.draw(txtSeleccion);
+                window.draw(FondoSeleccionP);
                 break;
 
             case COMBATE_NIVEL_1:
