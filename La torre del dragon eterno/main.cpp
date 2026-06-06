@@ -5,6 +5,8 @@
 #include "Guerrero.h"
 #include "Mago.h"
 #include "Esqueleto.h"
+#include "EsqueletoMjr.h"
+#include "Golem.h"
 // 1. Definimos los estados posibles del juego (0 a 4)
 enum EstadoJuego {
     MENU_PRINCIPAL,
@@ -27,6 +29,8 @@ int main() {
 
     bool seleccion;
 
+    int seleccionEnem=0;
+
    // --- CARGA DE TEXTURAS (Fuera del bucle while) ---
     sf:: Sprite fondolv1;
     sf::Texture texFondo;
@@ -45,16 +49,26 @@ int main() {
     sf::Texture texGuerre;
     texGuerre.loadFromFile("Guerrero_sprite.png");
     Guerrerobase.setTexture(texGuerre);
-    Guerrerobase.setPosition(65.f, 85.f);
+    Guerrerobase.setPosition(55.f, 85.f);
 
 
     sf::Sprite Esqueleto1_base;
     sf::Texture texEsque1eto1;
-    if (!texEsque1eto1.loadFromFile("esqueleto1_sprite.png")) {
-        std::cout << "¡ERROR: No encuentro 'mago_sprite.png'!" << std::endl;
-    }
+    texEsque1eto1.loadFromFile("esqueleto1_sprite.png");
     Esqueleto1_base.setTexture(texEsque1eto1);
     Esqueleto1_base.setPosition(550.f, 95.f);
+
+    sf::Sprite Esqueleto2_base;
+    sf::Texture texEsqueleto2;
+    texEsqueleto2.loadFromFile("esqueletomejoradobase_sprite.png");
+    Esqueleto2_base.setTexture(texEsqueleto2);
+    Esqueleto2_base.setPosition(450.f, 65.f);
+
+    sf::Sprite Golem_base;
+    sf::Texture texGolem;
+    texGolem.loadFromFile("golemdepiedrabase_sprite.png");
+    Golem_base.setTexture(texGolem);
+    Golem_base.setPosition(410.f, 65.f);
 
     // --- CARGA DE FUENTES Y TEXTOS (Para el menú rápido) ---
     sf::Font fuente;
@@ -126,12 +140,14 @@ int main() {
                             estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccion=0;
+                            seleccionEnem = 1;
                         }
                         if (event.key.code == sf::Keyboard::M) {
                             heroe = new Mago("Mago", 120, 30, 5); // Instancia dinámica de Mago
                             estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
                             seleccion=1;
+                            seleccionEnem = 1;
                         }
 
                         break;
@@ -186,11 +202,21 @@ int main() {
 
                                 // 3. Verificar condiciones de fin de combate
                                 if (!enemigoActual->estaVivo()) {
-                                    estadoActual = VICTORIA_PISO;
-                                    // Importante: liberar memoria si el enemigo murió
                                     delete enemigoActual;
                                     enemigoActual = nullptr;
+
+                                    if(seleccionEnem==1){
+                                        enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
+                                        seleccionEnem = 2;
+                                        txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
+                                    }
+                                    else if (seleccionEnem==2){
+                                        enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                        seleccionEnem = 3;
+                                    }
+                                    else estadoActual = VICTORIA_PISO;
                                 }
+
                                 else if (!heroe->estaVivo()) {
                                     estadoActual = GAME_OVER;
                                 }
@@ -220,8 +246,11 @@ int main() {
         if (esperandoContraataque) {
             if (clock.getElapsedTime().asSeconds() >= 2.0f) {
             // Ya pasaron 2 segundos, el enemigo ataca ahora
+            //verifico si no murio
+            if(enemigoActual != nullptr){
             heroe->recibirDanio(enemigoActual->getAtaque());
             txtInfoCombate.setString("El enemigo te ataca!");
+            }
             esperandoContraataque = false; // Terminó la espera
             }
         }
@@ -254,7 +283,15 @@ int main() {
                 }else{ window.draw(Guerrerobase);
                 }
 
+                if(seleccionEnem ==1){
                 window.draw(Esqueleto1_base);
+                }
+                else if (seleccionEnem == 2) {
+                    window.draw(Esqueleto2_base);
+                }
+                else window.draw(Golem_base);
+
+
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe != nullptr){

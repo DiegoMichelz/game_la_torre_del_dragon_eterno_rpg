@@ -51,6 +51,8 @@
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Enemigo.h" />
 		<Unit filename="include/Esqueleto.h" />
+		<Unit filename="include/EsqueletoMjr.h" />
+		<Unit filename="include/Golem.h" />
 		<Unit filename="include/Guerrero.h" />
 		<Unit filename="include/Heroe.h" />
 		<Unit filename="include/Mago.h" />
@@ -58,6 +60,8 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Enemigo.cpp" />
 		<Unit filename="src/Esqueleto.cpp" />
+		<Unit filename="src/EsqueletoMjr.cpp" />
+		<Unit filename="src/Golem.cpp" />
 		<Unit filename="src/Guerrero.cpp" />
 		<Unit filename="src/Heroe.cpp" />
 		<Unit filename="src/Mago.cpp" />
