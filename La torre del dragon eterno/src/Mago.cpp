@@ -1,9 +1,10 @@
 #include "Mago.h"
 #include "Enemigo.h"
+#include "Heroe.h"
 #include <iostream>
 
 
-Mago::Mago(std::string nom, int hp, int atk, int def) : Heroe(nom, hp, atk, def) {
+Mago::Mago(std::string nom, int hp, int atk, int def, int energiaMax) : Heroe(nom, hp, atk, def, energiaMax) {
 
 }
 

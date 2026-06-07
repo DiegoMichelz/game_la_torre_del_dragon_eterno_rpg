@@ -1,9 +1,9 @@
 #include "Guerrero.h"
 #include "Enemigo.h"
+#include "Heroe.h"
 #include <iostream>
 
-Guerrero::Guerrero(std::string nom, int hp, int atk, int def) : Heroe (nom, hp, atk, def){
-
+Guerrero::Guerrero(std::string nom, int hp, int atk, int def, int energiaMax) : Heroe (nom, hp, atk, def, energiaMax){
 }
 
 void Guerrero::ataqueEspecial(Enemigo* objetivo){

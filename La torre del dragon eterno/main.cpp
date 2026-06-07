@@ -3,6 +3,7 @@
 #include "Personaje.h"
 #include "Enemigo.h"
 #include "Guerrero.h"
+#include "Heroe.h"
 #include "Mago.h"
 #include "Esqueleto.h"
 #include "EsqueletoMjr.h"
@@ -80,9 +81,24 @@ int main() {
     txtControles.setFillColor(sf::Color::Green);
 
     sf::Text txtVida, txtVidaEn, txtVic;
-    txtVida.setFont(fuente); txtVida.setCharacterSize(20); txtVida.setFillColor(sf::Color::Yellow); txtVida.setPosition(30.f, 10.f);
-    txtVidaEn.setFont(fuente); txtVidaEn.setCharacterSize(20); txtVidaEn.setFillColor(sf::Color::Yellow); txtVidaEn.setPosition(600.f, 10.f);
-    txtVic.setFont(fuente); txtVic.setCharacterSize(30); txtVic.setFillColor(sf::Color::Green); txtVic.setPosition(150, 250);
+    txtVida.setFont(fuente); txtVida.setCharacterSize(20);
+    txtVida.setFillColor(sf::Color::Yellow);
+    txtVida.setPosition(30.f, 10.f);
+    txtVidaEn.setFont(fuente);
+    txtVidaEn.setCharacterSize(20);
+    txtVidaEn.setFillColor(sf::Color::Yellow);
+    txtVidaEn.setPosition(600.f, 10.f);
+
+    sf::Text txtEnergia;
+    txtEnergia.setFont(fuente);
+    txtEnergia.setCharacterSize(18);
+    txtEnergia.setFillColor(sf::Color::Cyan); // Azul para Mana, o Verde para Estamina
+    txtEnergia.setPosition(30.f, 35.f);
+
+    txtVic.setFont(fuente);
+    txtVic.setCharacterSize(30);
+    txtVic.setFillColor(sf::Color::Green);
+    txtVic.setPosition(150, 250);
     txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
     // GAME LOOP
@@ -100,12 +116,12 @@ int main() {
 
                     case SELECCION_PERSONAJE:
                         if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 150, 20, 10);
+                            heroe = new Guerrero("Guerrero", 150, 20, 10, 100);
                             seleccion = 0; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         } else if (event.key.code == sf::Keyboard::M) {
-                            heroe = new Mago("Mago", 120, 30, 5);
+                            heroe = new Mago("Mago", 120, 30, 5, 120);
                             seleccion = 1; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
                             seleccionEnem = 1;
@@ -113,17 +129,39 @@ int main() {
                         break;
 
                     case COMBATE_NIVEL_1:
-                        if (heroe && enemigoActual && turnoJugador) {
-                            if (event.key.code == sf::Keyboard::A) enemigoActual->recibirDanio(heroe->getAtaque());
-                            else if (event.key.code == sf::Keyboard::B) heroe->ataqueEspecial(enemigoActual);
-                            else if (event.key.code == sf::Keyboard::C) heroe->curarse();
-                            else break;
 
+                        if (heroe && enemigoActual && turnoJugador) {
+                            if (event.key.code == sf::Keyboard::A){
+                                    enemigoActual->recibirDanio(heroe->getAtaque());
+                                    // Ataque básico recupera un poco de energía
+                                    heroe->recuperarEnergia(10);
+                            }else if (event.key.code == sf::Keyboard::B){
+                                // Validamos si tiene suficiente energía (ejemplo: requiere 30)
+                                if (heroe->getEnergia() >= 30) {
+                                    heroe->ataqueEspecial(enemigoActual);
+                                    heroe->gastarEnergia(30);
+                                }else{
+                                    txtInfoCombate.setString("¡Energia insuficiente!");
+                                    turnoJugador = true; // No consumimos turno si no puede atacar
+                                }
+                            }else if (event.key.code == sf::Keyboard::C){
+                                    heroe->curarse();
+                                    // Curarse también recupera energía
+                                    heroe->recuperarEnergia(15);
+                                }
                             turnoJugador = false;
                             if (!enemigoActual->estaVivo()) {
                                 delete enemigoActual;
-                                if (seleccionEnem == 1) { enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50); seleccionEnem = 2; txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!"); turnoJugador = true; }
-                                else if (seleccionEnem == 2) { enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50); seleccionEnem = 3; txtInfoCombate.setString("¡Un Golem bloquea el paso!"); turnoJugador = true; }
+                                if (seleccionEnem == 1) {
+                                        enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
+                                seleccionEnem = 2;
+                                txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
+                                turnoJugador = true; }
+                                else if (seleccionEnem == 2) {
+                                        enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                seleccionEnem = 3;
+                                txtInfoCombate.setString("¡Un Golem bloquea el paso!");
+                                turnoJugador = true; }
                                 else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
                             } else {
                                 esperandoContraataque = true;
@@ -145,6 +183,8 @@ int main() {
         if (esperandoContraataque && clock.getElapsedTime().asSeconds() >= 2.0f) {
             if (enemigoActual) {
                 heroe->recibirDanio(enemigoActual->getAtaque());
+                // El simple hecho de sobrevivir al turno recupera un poco de energia
+                //heroe->recuperarEnergia(5);
                 txtInfoCombate.setString("El enemigo te ataca!");
             }
             esperandoContraataque = false;
@@ -164,7 +204,26 @@ int main() {
                 break;
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
-                (seleccion == 1) ? window.draw(Magobase) : window.draw(Guerrerobase);
+                if (seleccion == 1) {
+                    window.draw(Magobase);
+                } else {
+                    window.draw(Guerrerobase);
+                }
+
+                if (heroe) {
+                    std::string nombreEnergia;
+
+                    // Si seleccion es 1 (Mago), el nombre es "Mana", si no, es "Estamina"
+                    if (seleccion == 1) {
+                        nombreEnergia = "Mana: ";
+                    } else {
+                        nombreEnergia = "Estamina: ";
+                    }
+
+                    txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
+                    window.draw(txtEnergia);
+                }
+
                 if (seleccionEnem == 1) window.draw(Esqueleto1_base);
                 else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
                 else window.draw(Golem_base);

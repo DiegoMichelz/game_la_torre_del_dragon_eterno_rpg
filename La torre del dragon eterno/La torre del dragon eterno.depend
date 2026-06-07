@@ -1,46 +1,49 @@
 # depslib dependency file v1.0
-1780291655 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\enemigo.cpp
+1780842887 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\enemigo.cpp
 	"Enemigo.h"
 	<iostream>
 
-1780291613 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\enemigo.h
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\enemigo.h
 	"Personaje.h"
 
-1780364663 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\personaje.h
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\personaje.h
 	<string>
 
-1780365967 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\esqueleto.cpp
+1780842887 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\esqueleto.cpp
 	"Esqueleto.h"
 
-1780365537 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\esqueleto.h
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\esqueleto.h
 	"Enemigo.h"
 
-1780366205 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\guerrero.cpp
+1780847590 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\guerrero.cpp
 	"Guerrero.h"
 	"Enemigo.h"
+	"Heroe.h"
 	<iostream>
 
-1780365537 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\guerrero.h
+1780847590 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\guerrero.h
 	"Heroe.h"
 
-1780365820 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\heroe.h
+1780846217 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\heroe.h
 	"Personaje.h"
 
-1780287696 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\heroe.cpp
+1780846952 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\heroe.cpp
 	"Heroe.h"
+	"Personaje.h"
 
-1780491895 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\mago.cpp
+1780847208 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\mago.cpp
 	"Mago.h"
 	"Enemigo.h"
+	"Heroe.h"
 	<iostream>
 
-1780491895 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\mago.h
+1780847613 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\mago.h
 	"Heroe.h"
 
-1780290853 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\personaje.cpp
+1780846809 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\personaje.cpp
 	"Personaje.h"
 
-1780759919 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\main.cpp
+1780845746 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\main.cpp
 	<SFML/Graphics.hpp>
 	<iostream>
 	"Personaje.h"
@@ -512,7 +515,7 @@
 	"EsqueletoMjr.h"
 	"Golem.h"
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/CircleShape.hpp>
@@ -541,7 +544,7 @@
 	<SFML/Graphics/VertexBuffer.hpp>
 	<SFML/Graphics/View.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window.hpp
 	<SFML/System.hpp>
 	<SFML/Window/Clipboard.hpp>
 	<SFML/Window/Context.hpp>
@@ -558,7 +561,7 @@
 	<SFML/Window/WindowHandle.hpp>
 	<SFML/Window/WindowStyle.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Err.hpp>
@@ -578,24 +581,24 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\config.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\config.hpp
 	"TargetConditionals.h"
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\clock.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\clock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\export.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\export.hpp
 	<SFML/Config.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\time.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\time.hpp
 	<SFML/System/Export.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\err.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\err.hpp
 	<SFML/System/Export.hpp>
 	<ostream>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\fileinputstream.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\fileinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 	<SFML/System/InputStream.hpp>
@@ -603,32 +606,32 @@
 	<cstdio>
 	<string>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\inputstream.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\inputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Export.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\noncopyable.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\noncopyable.hpp
 	<SFML/System/Export.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\lock.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\lock.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\memoryinputstream.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\memoryinputstream.hpp
 	<SFML/Config.hpp>
 	<SFML/System/InputStream.hpp>
 	<SFML/System/Export.hpp>
 	<cstdlib>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\mutex.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\mutex.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\sleep.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\sleep.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Time.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\string.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\string.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/Utf.hpp>
 	<iterator>
@@ -636,7 +639,7 @@
 	<string>
 	<SFML/System/String.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\utf.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\utf.hpp
 	<SFML/Config.hpp>
 	<algorithm>
 	<locale>
@@ -644,96 +647,96 @@
 	<cstdlib>
 	<SFML/System/Utf.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\utf.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\utf.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\string.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\string.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\thread.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\thread.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 	<SFML/System/Thread.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\thread.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\thread.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocal.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocal.hpp
 	<SFML/System/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<cstdlib>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocalptr.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocalptr.hpp
 	<SFML/System/ThreadLocal.hpp>
 	<SFML/System/ThreadLocalPtr.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocalptr.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\threadlocalptr.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector2.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector2.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector2.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector3.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector3.hpp
 	<SFML/System/Vector3.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector3.inl
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\system\vector3.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\clipboard.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\clipboard.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\export.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\export.hpp
 	<SFML/Config.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\context.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\context.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/Window/GlResource.hpp>
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\glresource.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\glresource.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\contextsettings.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\contextsettings.hpp
 	<SFML/Config.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\cursor.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\cursor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\event.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\event.hpp
 	<SFML/Config.hpp>
 	<SFML/Window/Joystick.hpp>
 	<SFML/Window/Keyboard.hpp>
 	<SFML/Window/Mouse.hpp>
 	<SFML/Window/Sensor.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\joystick.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\joystick.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/String.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\keyboard.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\keyboard.hpp
 	<SFML/Window/Export.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\mouse.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\mouse.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\sensor.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\sensor.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/System/Time.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\touch.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\touch.hpp
 	<SFML/Window/Export.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\videomode.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\videomode.hpp
 	<SFML/Window/Export.hpp>
 	<vector>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\window.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\window.hpp
 	<SFML/Window/ContextSettings.hpp>
 	<SFML/Window/Cursor.hpp>
 	<SFML/Window/Export.hpp>
@@ -746,54 +749,54 @@
 	<SFML/System/String.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\windowhandle.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\windowhandle.hpp
 	<SFML/Config.hpp>
 
-1780490098 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\windowstyle.hpp
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\window\windowstyle.hpp
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\blendmode.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\blendmode.hpp
 	<SFML/Graphics/Export.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\export.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\export.hpp
 	<SFML/Config.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\circleshape.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\circleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\shape.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\shape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/VertexArray.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\drawable.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\drawable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderStates.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\renderstates.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\renderstates.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/BlendMode.hpp>
 	<SFML/Graphics/Transform.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\transform.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\transform.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rect.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rect.hpp
 	<SFML/System/Vector2.hpp>
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rect.inl
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rect.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\transformable.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\transformable.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Transform.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertexarray.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertexarray.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
@@ -801,22 +804,22 @@
 	<SFML/Graphics/Drawable.hpp>
 	<vector>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertex.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertex.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\color.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\color.hpp
 	<SFML/Graphics/Export.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\primitivetype.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\primitivetype.hpp
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\convexshape.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\convexshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 	<vector>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\font.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\font.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glyph.hpp>
 	<SFML/Graphics/Texture.hpp>
@@ -827,27 +830,27 @@
 	<string>
 	<vector>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glyph.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glyph.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\texture.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\texture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\image.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\image.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<string>
 	<vector>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rectangleshape.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rectangleshape.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Shape.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rendertarget.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rendertarget.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
@@ -859,26 +862,26 @@
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\view.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\view.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Transform.hpp>
 	<SFML/System/Vector2.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rendertexture.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\rendertexture.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Texture.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Window/ContextSettings.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\renderwindow.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\renderwindow.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Graphics/Image.hpp>
 	<SFML/Window/Window.hpp>
 	<string>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\shader.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\shader.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Glsl.hpp>
 	<SFML/Window/GlResource.hpp>
@@ -888,23 +891,23 @@
 	<map>
 	<string>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glsl.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glsl.hpp
 	<SFML/Graphics/Transform.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 	<SFML/Graphics/Glsl.inl>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glsl.inl
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\glsl.inl
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\sprite.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\sprite.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
 	<SFML/Graphics/Vertex.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\text.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\text.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Transformable.hpp>
@@ -915,7 +918,7 @@
 	<string>
 	<vector>
 
-1780490097 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertexbuffer.hpp
+1780842886 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\sfml\include\sfml\graphics\vertexbuffer.hpp
 	<SFML/Graphics/Export.hpp>
 	<SFML/Graphics/PrimitiveType.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -1330,16 +1333,16 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1780756986 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\esqueletomjr.cpp
+1780842887 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\esqueletomjr.cpp
 	"EsqueletoMjr.h"
 
-1780756986 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\esqueletomjr.h
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\esqueletomjr.h
 	"Enemigo.h"
 
-1780759402 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\golem.cpp
+1780842887 source:c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\golem.cpp
 	"Golem.h"
 
-1780759402 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\golem.h
+1780842887 c:\diegomichel\utn\tup\2026\progra 2\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\include\golem.h
 	"Enemigo.h"
 
 1780781672 source:c:\users\diazt\desktop\nueva carpeta\game_la_torre_del_dragon_eterno_rpg\la torre del dragon eterno\src\esqueletomjr.cpp
