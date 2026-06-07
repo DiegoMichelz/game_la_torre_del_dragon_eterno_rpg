@@ -38,6 +38,8 @@ int main() {
     sf::Sound soundMusicIntro;
     soundMusicIntro.setBuffer(bufferMusicIntro);
 
+    soundMusicIntro.setVolume(7.0f);
+
 
     // --- CARGA DE TEXTURAS ---
     sf::Texture texFondoMenu, textFondoSeleccionP, texFondo, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem;
@@ -144,42 +146,54 @@ int main() {
                     case COMBATE_NIVEL_1:
 
                         if (heroe && enemigoActual && turnoJugador) {
+
+                            bool accionRealizada = false;
+
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                     // Ataque básico recupera un poco de energía
                                     heroe->recuperarEnergia(10);
+                                    txtInfoCombate.setString("Atacaste al enemigo.");
+                                    accionRealizada = true;
+
                             }else if (event.key.code == sf::Keyboard::B){
                                 // Validamos si tiene suficiente energía (ejemplo: requiere 30)
                                 if (heroe->getEnergia() >= 30) {
                                     heroe->ataqueEspecial(enemigoActual);
                                     heroe->gastarEnergia(30);
+                                    txtInfoCombate.setString("Ataque Especial!");
+                                    accionRealizada = true;
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
-                                    turnoJugador = true; // No consumimos turno si no puede atacar
+                                    accionRealizada = false; // No consumimos turno si no puede atacar
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
                                     heroe->curarse();
                                     // Curarse también recupera energía
                                     heroe->recuperarEnergia(15);
+                                    txtInfoCombate.setString("Te curaste!");
+                                    accionRealizada = true;
                                 }
-                            turnoJugador = false;
-                            if (!enemigoActual->estaVivo()) {
-                                delete enemigoActual;
-                                if (seleccionEnem == 1) {
-                                        enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
-                                seleccionEnem = 2;
-                                txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
-                                turnoJugador = true; }
-                                else if (seleccionEnem == 2) {
-                                        enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
-                                seleccionEnem = 3;
-                                txtInfoCombate.setString("¡Un Golem bloquea el paso!");
-                                turnoJugador = true; }
-                                else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
-                            } else {
-                                esperandoContraataque = true;
-                                clock.restart();
-                                txtInfoCombate.setString("Espero el contraataque...");
+                            if (accionRealizada){
+                                turnoJugador = false;
+                                if (!enemigoActual->estaVivo())  {
+                                    delete enemigoActual;
+                                    if (seleccionEnem == 1) {
+                                            enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
+                                    seleccionEnem = 2;
+                                    txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
+                                    turnoJugador = true; }
+                                    else if (seleccionEnem == 2) {
+                                            enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                    seleccionEnem = 3;
+                                    txtInfoCombate.setString("¡Un Golem bloquea el paso!");
+                                    turnoJugador = true; }
+                                    else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
+                                } else {
+                                    esperandoContraataque = true;
+                                    clock.restart();
+                                    txtInfoCombate.setString("Espero el contraataque...");
+                                }
                             }
                         }
                         break;
