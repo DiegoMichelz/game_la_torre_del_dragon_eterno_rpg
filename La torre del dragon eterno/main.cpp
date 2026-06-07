@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/audio.hpp>
 #include <iostream>
 #include "Personaje.h"
 #include "Enemigo.h"
@@ -32,9 +33,16 @@ int main() {
     bool esperandoContraataque = false;
     sf::Clock clock;
 
+    sf::SoundBuffer bufferMusicIntro;
+    bufferMusicIntro.loadFromFile("MusicaIntro.wav");
+    sf::Sound soundMusicIntro;
+    soundMusicIntro.setBuffer(bufferMusicIntro);
+
+
     // --- CARGA DE TEXTURAS ---
     sf::Texture texFondoMenu, textFondoSeleccionP, texFondo, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem;
     sf::Sprite fondoMenu, FondoSeleccionP, fondolv1, Magobase, Guerrerobase, Esqueleto1_base, Esqueleto2_base, Golem_base;
+
 
     texFondoMenu.loadFromFile("FondoMenu.png");
     fondoMenu.setTexture(texFondoMenu);
@@ -101,21 +109,26 @@ int main() {
     txtVic.setPosition(150, 250);
     txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
+     soundMusicIntro.play();
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
+
             if (event.type == sf::Event::Closed) window.close();
 
             if (event.type == sf::Event::KeyPressed) {
                 switch (estadoActual) {
                     case MENU_PRINCIPAL:
+
+
                         if (event.key.code == sf::Keyboard::Num1) estadoActual = SELECCION_PERSONAJE;
                         if (event.key.code == sf::Keyboard::Escape) window.close();
                         break;
 
                     case SELECCION_PERSONAJE:
-                        if (event.key.code == sf::Keyboard::G) {
+                            soundMusicIntro.stop();
+                            if (event.key.code == sf::Keyboard::G) {
                             heroe = new Guerrero("Guerrero", 150, 20, 10, 100);
                             seleccion = 0; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
@@ -180,6 +193,7 @@ int main() {
             }
         }
 
+
         if (esperandoContraataque && clock.getElapsedTime().asSeconds() >= 2.0f) {
             if (enemigoActual) {
                 heroe->recibirDanio(enemigoActual->getAtaque());
@@ -198,8 +212,10 @@ int main() {
         switch (estadoActual) {
             case MENU_PRINCIPAL: window.draw(fondoMenu);
 
+
                 break;
-            case SELECCION_PERSONAJE: window.draw(FondoSeleccionP);
+            case SELECCION_PERSONAJE:
+                 window.draw(FondoSeleccionP);
 
                 break;
             case COMBATE_NIVEL_1:
