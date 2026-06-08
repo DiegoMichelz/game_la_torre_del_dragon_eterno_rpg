@@ -29,6 +29,7 @@ int main() {
 
     bool seleccion; // 0 para Guerrero, 1 para Mago
     int seleccionEnem = 0;
+    int cambioDePostura;
     bool turnoJugador = true;
     bool esperandoContraataque = false;
     sf::Clock clock;
@@ -42,8 +43,8 @@ int main() {
 
 
     // --- CARGA DE TEXTURAS ---
-    sf::Texture texFondoMenu, textFondoSeleccionP, texFondo, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem;
-    sf::Sprite fondoMenu, FondoSeleccionP, fondolv1, Magobase, Guerrerobase, Esqueleto1_base, Esqueleto2_base, Golem_base;
+    sf::Texture texFondoMenu, textFondoSeleccionP, texFondo, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem, texGuerreCurar, texGuerreAtaqueBasico, texGuerreAtaqueFeroz, texMagoAtaqueBasico, texMagoAtaqueFuego,texMagoCuracion;
+    sf::Sprite fondoMenu, FondoSeleccionP, fondolv1, Magobase, Guerrerobase, Esqueleto1_base, Esqueleto2_base, Golem_base, guerreroCurar, GuerreroAtaqueBasico,GuerreAtaqueFeroz, MagoAtaqueBasico,MagoAtaqueFuego,MagoCuracion  ;
 
 
     texFondoMenu.loadFromFile("FondoMenu.png");
@@ -54,14 +55,42 @@ int main() {
 
     texFondo.loadFromFile("fondo_nivel1.png");
     fondolv1.setTexture(texFondo);
-
+///============SPRITE DEL MAGO==================
     texMago.loadFromFile("mago_sprite.png");
     Magobase.setTexture(texMago);
     Magobase.setPosition(65.f, 85.f);
 
-    texGuerre.loadFromFile("Guerrero_sprite.png");
+    texMagoAtaqueBasico.loadFromFile("MagoAtaqueBasico.png");
+    MagoAtaqueBasico.setTexture(texMagoAtaqueBasico);
+    MagoAtaqueBasico.setPosition(65.f, 85.f);
+
+    texMagoAtaqueFuego.loadFromFile("MagoAtaqueFuego.png");
+    MagoAtaqueFuego.setTexture(texMagoAtaqueFuego);
+    MagoAtaqueFuego.setPosition(65.f, 85.f);
+
+    texMagoCuracion.loadFromFile("MagoCuracion.png");
+    MagoCuracion.setTexture(texMagoCuracion);
+    MagoCuracion.setPosition(65.f, 85.f);
+///============SPRITE DE GUERRERO==================
+    texGuerre.loadFromFile("Guerrerobase.png");
     Guerrerobase.setTexture(texGuerre);
     Guerrerobase.setPosition(55.f, 85.f);
+
+    texGuerreCurar.loadFromFile("Guerrerocuracion.png");
+    guerreroCurar.setTexture(texGuerreCurar);
+    guerreroCurar.setPosition(55.f, 85.f);
+
+    texGuerreAtaqueBasico.loadFromFile("GuerreroAtaqueBasico.png");
+    GuerreroAtaqueBasico.setTexture(texGuerreAtaqueBasico);
+    GuerreroAtaqueBasico.setPosition(55.f, 85.f);
+
+    texGuerreAtaqueFeroz.loadFromFile("GuerreAtaqueFeroz.png");
+    GuerreAtaqueFeroz.setTexture(texGuerreAtaqueFeroz);
+    GuerreAtaqueFeroz.setPosition(55.f, 85.f);
+
+
+
+
 
     texEsque1eto1.loadFromFile("esqueleto1_sprite.png");
     Esqueleto1_base.setTexture(texEsque1eto1);
@@ -154,13 +183,14 @@ int main() {
                         if (heroe && enemigoActual && turnoJugador) {
 
                             bool accionRealizada = false;
-
+                            cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                     // Ataque básico recupera un poco de energía
                                     heroe->recuperarEnergia(10);
                                     txtInfoCombate.setString("Atacaste al enemigo.");
                                     accionRealizada = true;
+                                    cambioDePostura = 1;
 
                             }else if (event.key.code == sf::Keyboard::B){
                                 // Validamos si tiene suficiente energía (ejemplo: requiere 30)
@@ -169,6 +199,7 @@ int main() {
                                     heroe->gastarEnergia(30);
                                     txtInfoCombate.setString("Ataque Especial!");
                                     accionRealizada = true;
+                                    cambioDePostura = 2;
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
                                     accionRealizada = false; // No consumimos turno si no puede atacar
@@ -181,6 +212,7 @@ int main() {
                                         heroe->recuperarEnergia(15);
                                         txtInfoCombate.setString("Te curaste!");
                                         accionRealizada = true;
+                                        cambioDePostura = 3;
                                     }else {
                                         txtInfoCombate.setString("¡No quedan curaciones");
                                         accionRealizada=false;
@@ -247,10 +279,29 @@ int main() {
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
                 if (seleccion == 1) {
-                    window.draw(Magobase);
+                     if(cambioDePostura == 0){
+                        window.draw(Magobase);
+                   }
+                    else if(cambioDePostura == 1){
+                        window.draw(MagoAtaqueBasico);
+                    }else if (cambioDePostura == 2){
+                        window.draw(MagoAtaqueFuego);
+                    }else if(cambioDePostura == 3){
+                        window.draw(MagoCuracion);
+                    }
                 } else {
-                    window.draw(Guerrerobase);
+                   if(cambioDePostura == 0){
+                        window.draw(Guerrerobase);
+                   }
+                    else if(cambioDePostura == 1){
+                        window.draw(GuerreroAtaqueBasico);
+                    }else if (cambioDePostura == 2){
+                        window.draw(GuerreAtaqueFeroz);
+                    }else if(cambioDePostura == 3){
+                        window.draw(guerreroCurar);
+                    }
                 }
+
 
                 if (heroe) {
                     std::string nombreEnergia;
