@@ -105,6 +105,12 @@ int main() {
     txtEnergia.setFillColor(sf::Color::Cyan); // Azul para Mana, o Verde para Estamina
     txtEnergia.setPosition(30.f, 35.f);
 
+    sf::Text txtCuraciones;
+    txtCuraciones.setFont(fuente);
+    txtCuraciones.setCharacterSize(18);
+    txtCuraciones.setFillColor(sf::Color::White);
+    txtCuraciones.setPosition(30.f, 60.f);
+
     txtVic.setFont(fuente);
     txtVic.setCharacterSize(30);
     txtVic.setFillColor(sf::Color::Green);
@@ -131,12 +137,12 @@ int main() {
                     case SELECCION_PERSONAJE:
                             soundMusicIntro.stop();
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 150, 20, 10, 100);
+                            heroe = new Guerrero("Guerrero", 150, 25, 10, 100);
                             seleccion = 0; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         } else if (event.key.code == sf::Keyboard::M) {
-                            heroe = new Mago("Mago", 120, 30, 5, 120);
+                            heroe = new Mago("Mago", 120, 18, 5, 120);
                             seleccion = 1; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
                             seleccionEnem = 1;
@@ -168,11 +174,17 @@ int main() {
                                     accionRealizada = false; // No consumimos turno si no puede atacar
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
-                                    heroe->curarse();
-                                    // Curarse también recupera energía
-                                    heroe->recuperarEnergia(15);
-                                    txtInfoCombate.setString("Te curaste!");
-                                    accionRealizada = true;
+                                    if(heroe->getCuracionesRestantes() > 0){
+                                        heroe->curarse();
+                                        heroe->usarCuracion();//restamos curaciones
+                                        // Curarse también recupera energía
+                                        heroe->recuperarEnergia(15);
+                                        txtInfoCombate.setString("Te curaste!");
+                                        accionRealizada = true;
+                                    }else {
+                                        txtInfoCombate.setString("¡No quedan curaciones");
+                                        accionRealizada=false;
+                                    }
                                 }
                             if (accionRealizada){
                                 turnoJugador = false;
@@ -252,14 +264,26 @@ int main() {
 
                     txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
+                    txtCuraciones.setString("Curaciones: " + std::to_string(heroe->getCuracionesRestantes()) + "/5");
+                    window.draw(txtCuraciones);
                 }
 
                 if (seleccionEnem == 1) window.draw(Esqueleto1_base);
                 else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
                 else window.draw(Golem_base);
-                window.draw(txtInfoCombate); window.draw(txtControles);
-                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual())); window.draw(txtVida); }
-                if (enemigoActual) { txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual())); window.draw(txtVidaEn); }
+                window.draw(txtInfoCombate);
+                window.draw(txtControles);
+                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                    window.draw(txtVida);
+                }
+                if (enemigoActual) {
+                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    window.draw(txtVidaEn);
+                }
+
+
+
+
                 break;
             case VICTORIA_PISO: window.draw(txtVic); break;
             case GAME_OVER:

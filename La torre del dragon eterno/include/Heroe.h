@@ -9,10 +9,11 @@ class Heroe : public Personaje {
         int nivel;
         int energia;        // Variable compartida
         int energiaMax;     // Para saber cuál es el tope
-
+        int curacionesRestantes;
     public:
         Heroe(std::string nom, int hp, int atk, int def, int energiaMax);
-        virtual ~Heroe();
+        int getCuracionesRestantes() { return curacionesRestantes; }
+        void usarCuracion(); // Método para restar
 
         void ganarExperiencia(int cant);
         virtual void curarse() = 0;
@@ -30,4 +31,8 @@ class Heroe : public Personaje {
             energia += cantidad;
             if (energia > energiaMax) energia = energiaMax;
         }
+
+        void recargarCuraciones() { curacionesRestantes = 5; }
+
+        virtual ~Heroe();
     };
