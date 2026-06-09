@@ -62,7 +62,7 @@ int main() {
 
     texMagoAtaqueBasico.loadFromFile("MagoAtaqueBasico.png");
     MagoAtaqueBasico.setTexture(texMagoAtaqueBasico);
-    MagoAtaqueBasico.setPosition(65.f, 85.f);
+    MagoAtaqueBasico.setPosition(65.f, 105.f);
 
     texMagoAtaqueFuego.loadFromFile("MagoAtaqueFuego.png");
     MagoAtaqueFuego.setTexture(texMagoAtaqueFuego);
@@ -82,11 +82,11 @@ int main() {
 
     texGuerreAtaqueBasico.loadFromFile("GuerreroAtaqueBasico.png");
     GuerreroAtaqueBasico.setTexture(texGuerreAtaqueBasico);
-    GuerreroAtaqueBasico.setPosition(55.f, 85.f);
+    GuerreroAtaqueBasico.setPosition(55.f, 55.f);
 
-    texGuerreAtaqueFeroz.loadFromFile("GuerreAtaqueFeroz.png");
+    texGuerreAtaqueFeroz.loadFromFile("GuerreroAtaqueFeroz.png");
     GuerreAtaqueFeroz.setTexture(texGuerreAtaqueFeroz);
-    GuerreAtaqueFeroz.setPosition(55.f, 85.f);
+    GuerreAtaqueFeroz.setPosition(65.f, 10.f);
 
 
 
