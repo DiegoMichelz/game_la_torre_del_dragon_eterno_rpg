@@ -191,6 +191,7 @@ int main() {
                                     txtInfoCombate.setString("Atacaste al enemigo.");
                                     accionRealizada = true;
                                     cambioDePostura = 1;
+                                    clock.restart();
 
                             }else if (event.key.code == sf::Keyboard::B){
                                 // Validamos si tiene suficiente energía (ejemplo: requiere 30)
@@ -200,6 +201,7 @@ int main() {
                                     txtInfoCombate.setString("Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
+                                    clock.restart();
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
                                     accionRealizada = false; // No consumimos turno si no puede atacar
@@ -213,6 +215,7 @@ int main() {
                                         txtInfoCombate.setString("Te curaste!");
                                         accionRealizada = true;
                                         cambioDePostura = 3;
+                                        clock.restart();
                                     }else {
                                         txtInfoCombate.setString("¡No quedan curaciones");
                                         accionRealizada=false;
@@ -261,6 +264,12 @@ int main() {
             }
             esperandoContraataque = false;
             turnoJugador = true;
+        }
+
+        // Si cambioDePostura es distinto de 0 (está atacando o curando)
+        // y pasó medio segundo, lo devolvemos a la pose base (0)
+        if (cambioDePostura != 0 && clock.getElapsedTime().asSeconds() >= 1.0f) {
+            cambioDePostura = 0;
         }
 
         if (heroe && !heroe->estaVivo()) estadoActual = GAME_OVER;
