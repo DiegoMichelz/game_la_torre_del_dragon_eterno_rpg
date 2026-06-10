@@ -15,6 +15,7 @@ enum EstadoJuego {
     MENU_PRINCIPAL,
     SELECCION_PERSONAJE,
     COMBATE_NIVEL_1,
+    COMBATE_NIVEL_2,
     VICTORIA_PISO,
     GAME_OVER
 };
@@ -43,8 +44,8 @@ int main() {
 
 
     // --- CARGA DE TEXTURAS ---
-    sf::Texture texFondoMenu, textFondoSeleccionP, texFondo, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem, texGuerreCurar, texGuerreAtaqueBasico, texGuerreAtaqueFeroz, texMagoAtaqueBasico, texMagoAtaqueFuego,texMagoCuracion;
-    sf::Sprite fondoMenu, FondoSeleccionP, fondolv1, Magobase, Guerrerobase, Esqueleto1_base, Esqueleto2_base, Golem_base, guerreroCurar, GuerreroAtaqueBasico,GuerreAtaqueFeroz, MagoAtaqueBasico,MagoAtaqueFuego,MagoCuracion  ;
+    sf::Texture texFondoMenu, textFondoSeleccionP,texFondo2, texFondo,texGolem2,texSeguidorDelvillano, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem, texGuerreCurar, texGuerreAtaqueBasico, texGuerreAtaqueFeroz, texMagoAtaqueBasico, texMagoAtaqueFuego,texMagoCuracion;
+    sf::Sprite fondoMenu, FondoSeleccionP, fondolv1,seguidorDelVillano, Magobase,Golem_base2, Guerrerobase,fondolvl2, Esqueleto1_base, Esqueleto2_base, Golem_base, guerreroCurar, GuerreroAtaqueBasico,GuerreAtaqueFeroz, MagoAtaqueBasico,MagoAtaqueFuego,MagoCuracion  ;
 
 
     texFondoMenu.loadFromFile("FondoMenu.png");
@@ -55,6 +56,10 @@ int main() {
 
     texFondo.loadFromFile("fondo_nivel1.png");
     fondolv1.setTexture(texFondo);
+
+    texFondo2.loadFromFile("fondo_nivel2.png");
+    fondolvl2.setTexture(texFondo2);
+
 ///============SPRITE DEL MAGO==================
     texMago.loadFromFile("mago_sprite.png");
     Magobase.setTexture(texMago);
@@ -88,6 +93,7 @@ int main() {
     GuerreAtaqueFeroz.setTexture(texGuerreAtaqueFeroz);
     GuerreAtaqueFeroz.setPosition(65.f, 10.f);
 
+///============SPRITE DE ENEMIGOS==================
 
     texEsque1eto1.loadFromFile("esqueleto1_sprite.png");
     Esqueleto1_base.setTexture(texEsque1eto1);
@@ -100,6 +106,14 @@ int main() {
     texGolem.loadFromFile("golemdepiedrabase_sprite.png");
     Golem_base.setTexture(texGolem);
     Golem_base.setPosition(410.f, 65.f);
+
+    texSeguidorDelvillano.loadFromFile("SeguidorDelVillano.png");
+    seguidorDelVillano.setTexture(texSeguidorDelvillano);
+    seguidorDelVillano.setPosition(450.f, 65.f);
+
+    texGolem2.loadFromFile("golemDePIedralvl2.png");
+    Golem_base2.setTexture(texGolem2);
+    Golem_base2.setPosition(410.f, 65.f);
 
     // --- CARGA DE FUENTES Y TEXTOS ---
     sf::Font fuente;
@@ -163,7 +177,7 @@ int main() {
                     case SELECCION_PERSONAJE:
                             soundMusicIntro.stop();
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 150, 25, 10, 100);
+                            heroe = new Guerrero("Guerrero", 150, 60, 10, 100);
                             seleccion = 0; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
@@ -232,6 +246,81 @@ int main() {
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Un Golem bloquea el paso!");
                                     turnoJugador = true; }
+                                    else { estadoActual = VICTORIA_PISO; turnoJugador = true;}
+                                } else {
+                                    esperandoContraataque = true;
+                                    clock.restart();
+                                    txtInfoCombate.setString("Espero el contraataque...");
+                                }
+                            }
+                        }
+                        break;
+
+                    case VICTORIA_PISO:
+                        if (event.key.code == sf::Keyboard::Enter)
+                        {
+                         estadoActual = COMBATE_NIVEL_2;
+
+                        }
+                        break;
+///=================================================================================================================
+                    case COMBATE_NIVEL_2:
+                        seleccionEnem = 0;
+                        if (heroe && enemigoActual && turnoJugador) {
+
+                            bool accionRealizada = false;
+                            cambioDePostura = 0;
+                            if (event.key.code == sf::Keyboard::A){
+                                    enemigoActual->recibirDanio(heroe->getAtaque());
+                                    // Ataque básico recupera un poco de energía
+                                    heroe->recuperarEnergia(10);
+                                    txtInfoCombate.setString("Atacaste al enemigo.");
+                                    accionRealizada = true;
+                                    cambioDePostura = 1;
+                                    clock.restart();
+
+                            }else if (event.key.code == sf::Keyboard::B){
+                                // Validamos si tiene suficiente energía (ejemplo: requiere 30)
+                                if (heroe->getEnergia() >= 30) {
+                                    heroe->ataqueEspecial(enemigoActual);
+                                    heroe->gastarEnergia(30);
+                                    txtInfoCombate.setString("Ataque Especial!");
+                                    accionRealizada = true;
+                                    cambioDePostura = 2;
+                                    clock.restart();
+                                }else{
+                                    txtInfoCombate.setString("¡Energia insuficiente!");
+                                    accionRealizada = false; // No consumimos turno si no puede atacar
+                                }
+                            }else if (event.key.code == sf::Keyboard::C){
+                                    if(heroe->getCuracionesRestantes() > 0){
+                                        heroe->curarse();
+                                        heroe->usarCuracion();//restamos curaciones
+                                        // Curarse también recupera energía
+                                        heroe->recuperarEnergia(15);
+                                        txtInfoCombate.setString("Te curaste!");
+                                        accionRealizada = true;
+                                        cambioDePostura = 3;
+                                        clock.restart();
+                                    }else {
+                                        txtInfoCombate.setString("¡No quedan curaciones");
+                                        accionRealizada=false;
+                                    }
+                                }
+                            if (accionRealizada){
+                                turnoJugador = false;
+                                if (!enemigoActual->estaVivo())  {
+                                    delete enemigoActual;
+                                    if (seleccionEnem == 1) {
+                                            enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
+                                    seleccionEnem = 2;
+                                    txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
+                                    turnoJugador = true; }
+                                    else if (seleccionEnem == 2) {
+                                            enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                    seleccionEnem = 3;
+                                    txtInfoCombate.setString("¡Un Golem bloquea el paso!");
+                                    turnoJugador = true; }
                                     else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
                                 } else {
                                     esperandoContraataque = true;
@@ -241,9 +330,7 @@ int main() {
                             }
                         }
                         break;
-                    case VICTORIA_PISO:
-                        if (event.key.code == sf::Keyboard::Enter) estadoActual = MENU_PRINCIPAL;
-                        break;
+
                     case GAME_OVER:
                         if (event.key.code == sf::Keyboard::Enter) estadoActual = MENU_PRINCIPAL;
                         break;
@@ -282,6 +369,7 @@ int main() {
                  window.draw(FondoSeleccionP);
 
                 break;
+///======================================================
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
                 if (seleccion == 1) {
@@ -338,6 +426,66 @@ int main() {
                     window.draw(txtVidaEn);
                 }
 
+
+
+
+                break;
+///======================================================
+            case COMBATE_NIVEL_2:
+                window.draw(fondolvl2);
+                if (seleccion == 1) {
+                     if(cambioDePostura == 0){
+                        window.draw(Magobase);
+                   }
+                    else if(cambioDePostura == 1){
+                        window.draw(MagoAtaqueBasico);
+                    }else if (cambioDePostura == 2){
+                        window.draw(MagoAtaqueFuego);
+                    }else if(cambioDePostura == 3){
+                        window.draw(MagoCuracion);
+                    }
+                } else {
+                   if(cambioDePostura == 0){
+                        window.draw(Guerrerobase);
+                   }
+                    else if(cambioDePostura == 1){
+                        window.draw(GuerreroAtaqueBasico);
+                    }else if (cambioDePostura == 2){
+                        window.draw(GuerreAtaqueFeroz);
+                    }else if(cambioDePostura == 3){
+                        window.draw(guerreroCurar);
+                    }
+                }
+
+
+                if (heroe) {
+                    std::string nombreEnergia;
+
+                    // Si seleccion es 1 (Mago), el nombre es "Mana", si no, es "Estamina"
+                    if (seleccion == 1) {
+                        nombreEnergia = "Mana: ";
+                    } else {
+                        nombreEnergia = "Estamina: ";
+                    }
+
+                    txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
+                    window.draw(txtEnergia);
+                    txtCuraciones.setString("Curaciones: " + std::to_string(heroe->getCuracionesRestantes()) + "/5");
+                    window.draw(txtCuraciones);
+                }
+
+                if (seleccionEnem == 1) window.draw(Esqueleto1_base);
+                else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
+                else window.draw(Golem_base);
+                window.draw(txtInfoCombate);
+                window.draw(txtControles);
+                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                    window.draw(txtVida);
+                }
+                if (enemigoActual) {
+                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    window.draw(txtVidaEn);
+                }
 
 
 
