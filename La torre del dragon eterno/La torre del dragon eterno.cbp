@@ -55,19 +55,25 @@
 		<Unit filename="include/Esqueleto.h" />
 		<Unit filename="include/EsqueletoMjr.h" />
 		<Unit filename="include/Golem.h" />
+		<Unit filename="include/GolemOscuro.h" />
 		<Unit filename="include/Guerrero.h" />
 		<Unit filename="include/Heroe.h" />
 		<Unit filename="include/Mago.h" />
+		<Unit filename="include/MagoOscuro.h" />
 		<Unit filename="include/Personaje.h" />
+		<Unit filename="include/SeguidordelVillano.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Enemigo.cpp" />
 		<Unit filename="src/Esqueleto.cpp" />
 		<Unit filename="src/EsqueletoMjr.cpp" />
 		<Unit filename="src/Golem.cpp" />
+		<Unit filename="src/GolemOscuro.cpp" />
 		<Unit filename="src/Guerrero.cpp" />
 		<Unit filename="src/Heroe.cpp" />
 		<Unit filename="src/Mago.cpp" />
+		<Unit filename="src/MagoOscuro.cpp" />
 		<Unit filename="src/Personaje.cpp" />
+		<Unit filename="src/SeguidordelVillano.cpp" />
 		<Extensions>
 			<lib_finder disable_auto="1" />
 		</Extensions>

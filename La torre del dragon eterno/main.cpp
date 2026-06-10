@@ -9,6 +9,9 @@
 #include "Esqueleto.h"
 #include "EsqueletoMjr.h"
 #include "Golem.h"
+#include "MagoOscuro.h"
+#include "GolemOscuro.h"
+#include "SeguidordelVillano.h"
 
 // Definición de estados del juego
 enum EstadoJuego {
@@ -236,6 +239,8 @@ int main() {
                                 turnoJugador = false;
                                 if (!enemigoActual->estaVivo())  {
                                     delete enemigoActual;
+                                    enemigoActual = nullptr;
+                                    esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
                                             enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
                                     seleccionEnem = 2;
@@ -252,6 +257,8 @@ int main() {
                                     clock.restart();
                                     txtInfoCombate.setString("Espero el contraataque...");
                                 }
+                                turnoJugador = true;
+
                             }
                         }
                         break;
@@ -259,13 +266,29 @@ int main() {
                     case VICTORIA_PISO:
                         if (event.key.code == sf::Keyboard::Enter)
                         {
-                         estadoActual = COMBATE_NIVEL_2;
+                                         // Borramos el enemigo anterior si quedó alguno
+                            if (enemigoActual != nullptr) {
+                                delete enemigoActual;
+                                enemigoActual = nullptr;
+                            }
+
+                            turnoJugador = true; // El jugador siempre empieza
+                            esperandoContraataque = false;// Limpiamos estados viejos
+                            cambioDePostura = 0;
+                            clock.restart();
+                            // Creamos el primer enemigo del Nivel 2
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
+                            seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
+                            estadoActual = COMBATE_NIVEL_2;
 
                         }
                         break;
+
+
+
 ///=================================================================================================================
                     case COMBATE_NIVEL_2:
-                        seleccionEnem = 0;
+
                         if (heroe && enemigoActual && turnoJugador) {
 
                             bool accionRealizada = false;
@@ -309,8 +332,11 @@ int main() {
                                 }
                             if (accionRealizada){
                                 turnoJugador = false;
+
                                 if (!enemigoActual->estaVivo())  {
                                     delete enemigoActual;
+                                    enemigoActual = nullptr;
+                                    esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
                                             enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
                                     seleccionEnem = 2;
@@ -337,17 +363,16 @@ int main() {
                 }
             }
         }
-
-
         if (esperandoContraataque && clock.getElapsedTime().asSeconds() >= 2.0f) {
-            if (enemigoActual) {
+            if (enemigoActual!=nullptr) {
                 heroe->recibirDanio(enemigoActual->getAtaque());
                 // El simple hecho de sobrevivir al turno recupera un poco de energia
                 //heroe->recuperarEnergia(5);
                 txtInfoCombate.setString("El enemigo te ataca!");
-            }
-            esperandoContraataque = false;
-            turnoJugador = true;
+                esperandoContraataque = false;
+                turnoJugador = true;
+            }else {esperandoContraataque = false;}
+
         }
 
         // Si cambioDePostura es distinto de 0 (está atacando o curando)
@@ -355,6 +380,7 @@ int main() {
         if (cambioDePostura != 0 && clock.getElapsedTime().asSeconds() >= 1.0f) {
             cambioDePostura = 0;
         }
+
 
         if (heroe && !heroe->estaVivo()) estadoActual = GAME_OVER;
 
