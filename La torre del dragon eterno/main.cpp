@@ -39,7 +39,7 @@ int main() {
     sf::Sound soundMusicIntro;
     soundMusicIntro.setBuffer(bufferMusicIntro);
 
-    soundMusicIntro.setVolume(7.0f);
+    soundMusicIntro.setVolume(15.0f);
 
 
     // --- CARGA DE TEXTURAS ---
@@ -89,9 +89,6 @@ int main() {
     GuerreAtaqueFeroz.setPosition(65.f, 10.f);
 
 
-
-
-
     texEsque1eto1.loadFromFile("esqueleto1_sprite.png");
     Esqueleto1_base.setTexture(texEsque1eto1);
     Esqueleto1_base.setPosition(550.f, 95.f);
@@ -113,7 +110,7 @@ int main() {
     txtTitulo.setFillColor(sf::Color::Yellow);
 
     sf::Text txtInfoCombate("", fuente, 20);
-    txtInfoCombate.setPosition(50, 50);
+    txtInfoCombate.setPosition(80, 60);
 
     sf::Text txtControles("Presione [A] para Atacar, [B] Especial, [C] Curar", fuente, 18);
     txtControles.setPosition(50, 550);
@@ -130,15 +127,15 @@ int main() {
 
     sf::Text txtEnergia;
     txtEnergia.setFont(fuente);
-    txtEnergia.setCharacterSize(18);
+    txtEnergia.setCharacterSize(20);
     txtEnergia.setFillColor(sf::Color::Cyan); // Azul para Mana, o Verde para Estamina
     txtEnergia.setPosition(30.f, 35.f);
 
     sf::Text txtCuraciones;
     txtCuraciones.setFont(fuente);
-    txtCuraciones.setCharacterSize(18);
+    txtCuraciones.setCharacterSize(20);
     txtCuraciones.setFillColor(sf::Color::White);
-    txtCuraciones.setPosition(30.f, 60.f);
+    txtCuraciones.setPosition(200.f, 12.f);
 
     txtVic.setFont(fuente);
     txtVic.setCharacterSize(30);
