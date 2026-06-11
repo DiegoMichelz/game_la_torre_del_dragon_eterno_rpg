@@ -14,14 +14,16 @@ class Heroe : public Personaje {
         Heroe(std::string nom, int hp, int atk, int def, int energiaMax);
         int getCuracionesRestantes() { return curacionesRestantes; }
         void usarCuracion(); // Método para restar
-
         void ganarExperiencia(int cant);
         virtual void curarse() = 0;
         virtual void ataqueEspecial(Enemigo* objetivo) = 0;
 
+        //logica restauracion y subida de nivel
+        void restaurarTodo();
+        void subirNivel();
+
         // Métodos para manejar la energía
         int getEnergia() { return energia; }
-
         void gastarEnergia(int cantidad) {
             energia -= cantidad;
             if (energia < 0) energia = 0;

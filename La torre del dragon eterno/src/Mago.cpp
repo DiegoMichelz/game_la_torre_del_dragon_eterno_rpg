@@ -10,7 +10,7 @@ Mago::Mago(std::string nom, int hp, int atk, int def, int energiaMax) : Heroe(no
 
 void Mago::ataqueEspecial(Enemigo* objetivo){
     // Bola de fuego ignorando un poco la defensa (o daño directo mágico)
-    objetivo->recibirDanio(ataque + 10);
+    objetivo->recibirDanio(ataque + 20);
     std::cout << nombre << " lanzo una Bola de Fuego!" << std::endl;
 }
 

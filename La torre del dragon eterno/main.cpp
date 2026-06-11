@@ -180,14 +180,14 @@ int main() {
                     case SELECCION_PERSONAJE:
                             soundMusicIntro.stop();
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 150, 60, 10, 100);
+                            heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
                             seleccion = 0; estadoActual = COMBATE_NIVEL_1;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         } else if (event.key.code == sf::Keyboard::M) {
-                            heroe = new Mago("Mago", 120, 18, 5, 120);
+                            heroe = new Mago("Mago", 150, 15, 5, 140);
                             seleccion = 1; estadoActual = COMBATE_NIVEL_1;
-                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         }
                         break;
@@ -200,19 +200,29 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
-                                    // Ataque básico recupera un poco de energía
-                                    heroe->recuperarEnergia(10);
-                                    txtInfoCombate.setString("Atacaste al enemigo.");
+                                // Asignación de energía por ataque básico
+                                    int ganancia = 10;//si es guerrero
+                                    if (seleccion == 1) { // Si es mago
+                                        ganancia = 15;
+                                    }
+                                    heroe->recuperarEnergia(ganancia);
+                                    txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
                                     accionRealizada = true;
                                     cambioDePostura = 1;
                                     clock.restart();
 
                             }else if (event.key.code == sf::Keyboard::B){
-                                // Validamos si tiene suficiente energía (ejemplo: requiere 30)
-                                if (heroe->getEnergia() >= 30) {
+                                // Definimos el costo según el tipo de personaje
+                                int costo = 30; // Costo por defecto (Mago)
+                                if (seleccion == 0) { // Si es Guerrero
+                                    costo = 40;
+                                }
+
+                                // Validamos si tiene suficiente energía
+                                if (heroe->getEnergia() >= costo) {
                                     heroe->ataqueEspecial(enemigoActual);
-                                    heroe->gastarEnergia(30);
-                                    txtInfoCombate.setString("Ataque Especial!");
+                                    heroe->gastarEnergia(costo);
+                                    txtInfoCombate.setString("¡Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
                                     clock.restart();
@@ -225,9 +235,10 @@ int main() {
                                         heroe->curarse();
                                         heroe->usarCuracion();//restamos curaciones
                                         // Curarse también recupera energía
-                                        heroe->recuperarEnergia(15);
+                                        //heroe->recuperarEnergia(15);
                                         txtInfoCombate.setString("Te curaste!");
-                                        accionRealizada = true;
+                                        //accionRealizada = true;
+                                        //turnoJugador = true;
                                         cambioDePostura = 3;
                                         clock.restart();
                                     }else {
@@ -247,7 +258,7 @@ int main() {
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                            enemigoActual = new Golem("Golem de Piedra", 200, 15, 8, 50);
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Un Golem bloquea el paso!");
                                     turnoJugador = true; }
@@ -257,7 +268,7 @@ int main() {
                                     clock.restart();
                                     txtInfoCombate.setString("Espero el contraataque...");
                                 }
-                                turnoJugador = true;
+
 
                             }
                         }
@@ -271,13 +282,14 @@ int main() {
                                 delete enemigoActual;
                                 enemigoActual = nullptr;
                             }
-
+                            //transicion a nivel 2
+                            heroe->subirNivel(); //restauramos todo e incremento stats
                             turnoJugador = true; // El jugador siempre empieza
                             esperandoContraataque = false;// Limpiamos estados viejos
                             cambioDePostura = 0;
                             clock.restart();
                             // Creamos el primer enemigo del Nivel 2
-                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 135, 15, 5, 50);
+                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 140, 18, 7, 50);
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_2;
 
@@ -295,13 +307,16 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
-                                    // Ataque básico recupera un poco de energía
-                                    heroe->recuperarEnergia(10);
-                                    txtInfoCombate.setString("Atacaste al enemigo.");
+                                    // Asignación de energía por ataque básico
+                                    int ganancia = 10;//si es mago
+                                    if (seleccion == 0) { // Si es Guerrero
+                                        ganancia = 15;
+                                    }
+                                    heroe->recuperarEnergia(ganancia);
+                                    txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
                                     accionRealizada = true;
                                     cambioDePostura = 1;
                                     clock.restart();
-
                             }else if (event.key.code == sf::Keyboard::B){
                                 // Validamos si tiene suficiente energía (ejemplo: requiere 30)
                                 if (heroe->getEnergia() >= 30) {
@@ -320,7 +335,7 @@ int main() {
                                         heroe->curarse();
                                         heroe->usarCuracion();//restamos curaciones
                                         // Curarse también recupera energía
-                                        heroe->recuperarEnergia(15);
+                                        //heroe->recuperarEnergia(15);
                                         txtInfoCombate.setString("Te curaste!");
                                         accionRealizada = true;
                                         cambioDePostura = 3;
@@ -338,12 +353,12 @@ int main() {
                                     enemigoActual = nullptr;
                                     esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
-                                            enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 145, 20, 5, 50);
+                                            enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 185, 23, 7, 50);
                                     seleccionEnem = 2;
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new Golem("Golem de Piedra", 200, 15, 12, 50);
+                                            enemigoActual = new Golem("Golem de Piedra", 240, 18, 14, 50);
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Un Golem bloquea el paso!");
                                     turnoJugador = true; }
@@ -358,7 +373,23 @@ int main() {
                         break;
 
                     case GAME_OVER:
-                        if (event.key.code == sf::Keyboard::Enter) estadoActual = MENU_PRINCIPAL;
+                        if (event.key.code == sf::Keyboard::Enter) {
+
+                            if (heroe != nullptr) {
+                                delete heroe;
+                                heroe = nullptr;
+                            }
+
+                            if (enemigoActual != nullptr) {
+                                delete enemigoActual;
+                                enemigoActual = nullptr;
+                            }
+
+                            turnoJugador = true;
+                            esperandoContraataque = false;
+
+                            estadoActual = MENU_PRINCIPAL;
+                        }
                         break;
                 }
             }
