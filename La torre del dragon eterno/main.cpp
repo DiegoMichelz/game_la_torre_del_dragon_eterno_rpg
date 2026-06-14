@@ -46,9 +46,37 @@ int main() {
     soundMusicIntro.setVolume(15.0f);
 
 
-    // --- CARGA DE TEXTURAS ---
-    sf::Texture texFondoMenu, textFondoSeleccionP,texFondo2, texFondo,texGolem2,texSeguidorDelvillano, texMago, texGuerre, texEsque1eto1, texEsqueleto2, texGolem, texGuerreCurar, texGuerreAtaqueBasico, texGuerreAtaqueFeroz, texMagoAtaqueBasico, texMagoAtaqueFuego,texMagoCuracion;
-    sf::Sprite fondoMenu, FondoSeleccionP, fondolv1,seguidorDelVillano, Magobase,Golem_base2, Guerrerobase,fondolvl2, Esqueleto1_base, Esqueleto2_base, Golem_base, guerreroCurar, GuerreroAtaqueBasico,GuerreAtaqueFeroz, MagoAtaqueBasico,MagoAtaqueFuego,MagoCuracion  ;
+    /// ------------------ DECLARACION DE TEXTURAS Y SPRITES ------------------
+
+    /// ----- DECLARACION DE TEXTURAS FONDOS -----
+
+    sf::Texture texFondoMenu;
+    sf::Texture textFondoSeleccionP;
+    sf::Texture texFondo, texFondo2;
+
+    /// ----- DECLARACION DE SPRITES FONDOS -----
+
+    sf::Sprite fondoMenu;
+    sf::Sprite FondoSeleccionP;
+    sf::Sprite fondolv1, fondolvl2;
+
+    /// ----- DECLARACION DE TEXTURAS HEROES -----
+
+    sf::Texture texMago, texMagoAtaqueBasico, texMagoAtaqueFuego, texMagoCuracion;
+    sf::Texture texGuerre, texGuerreCurar, texGuerreAtaqueBasico, texGuerreAtaqueFeroz;
+
+    /// ----- DECLARACION DE SPRITES HEROES -----
+
+    sf::Sprite Magobase, MagoAtaqueBasico, MagoAtaqueFuego, MagoCuracion;
+    sf::Sprite Guerrerobase, guerreroCurar, GuerreroAtaqueBasico,GuerreAtaqueFeroz;
+
+    /// ----- DECLARACION DE TEXTURAS ENEMIGOS -----
+
+    sf::Texture texGolem2,texSeguidorDelvillano, texEsque1eto1, texEsqueleto2, texGolem;
+
+    /// ----- DECLARACION DE TEXTURAS ENEMIGOS -----
+
+    sf::Sprite seguidorDelVillano, Golem_base2, Esqueleto1_base, Esqueleto2_base, Golem_base;
 
 
     texFondoMenu.loadFromFile("FondoMenu.png");
