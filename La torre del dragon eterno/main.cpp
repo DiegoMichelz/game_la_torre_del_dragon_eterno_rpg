@@ -53,13 +53,14 @@ int main() {
     sf::Texture texFondoMenu;
     sf::Texture textFondoSeleccionP;
     sf::Texture texFondo, texFondo2;
+    sf::Texture texFondoVicPiso;
 
     /// ----- DECLARACION DE SPRITES FONDOS -----
 
     sf::Sprite fondoMenu;
     sf::Sprite FondoSeleccionP;
     sf::Sprite fondolv1, fondolvl2;
-
+    sf::Sprite fondoVicPiso;
     /// ----- DECLARACION DE TEXTURAS HEROES -----
 
     sf::Texture texMago, texMagoAtaqueBasico, texMagoAtaqueFuego, texMagoCuracion;
@@ -90,6 +91,9 @@ int main() {
 
     texFondo2.loadFromFile("fondo_nivel2.png");
     fondolvl2.setTexture(texFondo2);
+
+    texFondoVicPiso.loadFromFile ("Victoriadepiso.png");
+    fondoVicPiso.setTexture(texFondoVicPiso);
 
 ///============SPRITE DEL MAGO==================
     texMago.loadFromFile("mago_sprite.png");
@@ -317,7 +321,7 @@ int main() {
                             cambioDePostura = 0;
                             clock.restart();
                             // Creamos el primer enemigo del Nivel 2
-                            enemigoActual = new Esqueleto("Esqueleto Nivel 1", 140, 18, 7, 50);
+                            enemigoActual = new SeguidordelVillano("Seguidor del Villano", 140, 18, 7, 50);
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_2;
 
@@ -335,9 +339,9 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
-                                    // Asignación de energía por ataque básico
-                                    int ganancia = 10;//si es mago
-                                    if (seleccion == 0) { // Si es Guerrero
+                                   // Asignación de energía por ataque básico
+                                    int ganancia = 10;//si es guerrero
+                                    if (seleccion == 1) { // Si es mago
                                         ganancia = 15;
                                     }
                                     heroe->recuperarEnergia(ganancia);
@@ -381,7 +385,7 @@ int main() {
                                     enemigoActual = nullptr;
                                     esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
-                                            enemigoActual = new EsqueletoMjr("Esqueleto Mejorado", 185, 23, 7, 50);
+                                            enemigoActual = new GolemOscuro("Golem Oscuro", 240, 18, 14, 50);
                                     seleccionEnem = 2;
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
@@ -559,8 +563,8 @@ int main() {
                     window.draw(txtCuraciones);
                 }
 
-                if (seleccionEnem == 1) window.draw(Esqueleto1_base);
-                else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
+                if (seleccionEnem == 1) window.draw(seguidorDelVillano);
+                else if (seleccionEnem == 2) window.draw(Golem_base2);
                 else window.draw(Golem_base);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
@@ -575,7 +579,8 @@ int main() {
 
 
                 break;
-            case VICTORIA_PISO: window.draw(txtVic); break;
+            case VICTORIA_PISO: window.draw(fondoVicPiso);
+                break;
             case GAME_OVER:
                 sf::Text txtGov("GAME OVER.\nPresione ENTER para reintentar.", fuente, 30);
                 txtGov.setPosition(150, 250); txtGov.setFillColor(sf::Color::Red);
