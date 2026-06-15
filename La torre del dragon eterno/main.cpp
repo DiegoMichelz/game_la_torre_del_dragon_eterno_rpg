@@ -16,7 +16,12 @@
 // Definición de estados del juego
 enum EstadoJuego {
     MENU_PRINCIPAL,
+    HISTORIA_1, // Imagen 1
+    HISTORIA_2, // Imagen 2
+    HISTORIA_3, // Imagen 3
     SELECCION_PERSONAJE,
+    HISTORIA_GUERRERO, // Pantalla tras elegir Guerrero
+    HISTORIA_MAGO,     // Pantalla tras elegir Mago
     COMBATE_NIVEL_1,
     COMBATE_NIVEL_2,
     VICTORIA_PISO,
@@ -54,13 +59,15 @@ int main() {
     sf::Texture textFondoSeleccionP;
     sf::Texture texFondo, texFondo2;
     sf::Texture texFondoVicPiso;
-
+    sf::Texture texHist1, texHist2, texHist3, texHistGuerrero, texHistMago;
     /// ----- DECLARACION DE SPRITES FONDOS -----
 
     sf::Sprite fondoMenu;
     sf::Sprite FondoSeleccionP;
     sf::Sprite fondolv1, fondolvl2;
     sf::Sprite fondoVicPiso;
+
+    sf::Sprite sprHist1, sprHist2, sprHist3, sprHistGuerrero, sprHistMago;
     /// ----- DECLARACION DE TEXTURAS HEROES -----
 
     sf::Texture texMago, texMagoAtaqueBasico, texMagoAtaqueFuego, texMagoCuracion;
@@ -94,6 +101,17 @@ int main() {
 
     texFondoVicPiso.loadFromFile ("Victoriadepiso.png");
     fondoVicPiso.setTexture(texFondoVicPiso);
+
+    texHist1.loadFromFile("historia1.png");
+    sprHist1.setTexture(texHist1);
+    texHist2.loadFromFile("historia2.png");
+    sprHist2.setTexture(texHist2);
+    texHist3.loadFromFile("historia3.png");
+    sprHist3.setTexture(texHist3);
+    texHistGuerrero.loadFromFile("historiadelguerrero.png");
+    sprHistGuerrero.setTexture(texHistGuerrero);
+    texHistMago.loadFromFile("historiadelmago.png");
+    sprHistMago.setTexture(texHistMago);
 
 ///============SPRITE DEL MAGO==================
     texMago.loadFromFile("mago_sprite.png");
@@ -205,24 +223,41 @@ int main() {
                     case MENU_PRINCIPAL:
 
 
-                        if (event.key.code == sf::Keyboard::Num1) estadoActual = SELECCION_PERSONAJE;
+                        if (event.key.code == sf::Keyboard::Num1) estadoActual = HISTORIA_1;
                         if (event.key.code == sf::Keyboard::Escape) window.close();
                         break;
-
+                    case HISTORIA_1:
+                        if (event.key.code == sf::Keyboard::Enter) estadoActual = HISTORIA_2;
+                        break;
+                    case HISTORIA_2:
+                        if (event.key.code == sf::Keyboard::Enter) estadoActual = HISTORIA_3;
+                        break;
+                    case HISTORIA_3:
+                        if (event.key.code == sf::Keyboard::Enter) estadoActual = SELECCION_PERSONAJE;
+                        break;
                     case SELECCION_PERSONAJE:
                             soundMusicIntro.stop();
                             if (event.key.code == sf::Keyboard::G) {
                             heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
-                            seleccion = 0; estadoActual = COMBATE_NIVEL_1;
+                            seleccion = 0;
+                            estadoActual = HISTORIA_GUERRERO;
+
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         } else if (event.key.code == sf::Keyboard::M) {
                             heroe = new Mago("Mago", 150, 15, 5, 140);
-                            seleccion = 1; estadoActual = COMBATE_NIVEL_1;
+                            seleccion = 1;
+                            estadoActual = HISTORIA_MAGO;
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         }
                         break;
+                    case HISTORIA_GUERRERO:
+                            if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
+                        break;
+
+                    case HISTORIA_MAGO:
+                            if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
 
                     case COMBATE_NIVEL_1:
 
@@ -452,11 +487,20 @@ int main() {
         switch (estadoActual) {
             case MENU_PRINCIPAL: window.draw(fondoMenu);
 
-
+                break;
+            case HISTORIA_1: window.draw(sprHist1);
+                break;
+            case HISTORIA_2: window.draw(sprHist2);
+                break;
+            case HISTORIA_3: window.draw(sprHist3);
                 break;
             case SELECCION_PERSONAJE:
                  window.draw(FondoSeleccionP);
 
+                break;
+            case HISTORIA_GUERRERO: window.draw(sprHistGuerrero);
+                break;
+            case HISTORIA_MAGO: window.draw(sprHistMago);
                 break;
 ///======================================================
             case COMBATE_NIVEL_1:
