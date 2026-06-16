@@ -683,8 +683,31 @@ int main() {
 
                     txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
-                    txtCuraciones.setString("Curaciones: " + std::to_string(heroe->getCuracionesRestantes()) + "/5");
-                    window.draw(txtCuraciones);
+                    if (heroe->getCuracionesRestantes() == 5)
+                    {
+                    window.draw(posiones5);
+                    }
+                        else if (heroe->getCuracionesRestantes() == 4)
+                        {
+                            window.draw(posiones4);
+
+                            }else if (heroe->getCuracionesRestantes() == 3)
+                            {
+                                window.draw(posiones3);
+
+                                }else if (heroe->getCuracionesRestantes() == 2)
+                                {
+                                    window.draw(posiones2);
+
+                                    }else if (heroe->getCuracionesRestantes() == 1)
+                                    {
+                                        window.draw(posiones1);
+
+                                        }else if (heroe->getCuracionesRestantes() == 0)
+                                        {
+                                            window.draw(posiones0);
+
+                                            }
                 }
 
                 if (seleccionEnem == 1) window.draw(seguidorDelVillano);
