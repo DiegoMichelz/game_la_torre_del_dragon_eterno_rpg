@@ -66,14 +66,15 @@ int main() {
     sf::Texture texFondo, texFondo2;
     sf::Texture texFondoVicPiso;
     sf::Texture texHist1, texHist2, texHist3, texHistGuerrero, texHistMago;
+
     /// ----- DECLARACION DE SPRITES FONDOS -----
 
     sf::Sprite fondoMenu;
     sf::Sprite FondoSeleccionP;
     sf::Sprite fondolv1, fondolvl2;
     sf::Sprite fondoVicPiso;
-
     sf::Sprite sprHist1, sprHist2, sprHist3, sprHistGuerrero, sprHistMago;
+
     /// ----- DECLARACION DE TEXTURAS HEROES -----
 
     sf::Texture texMago, texMagoAtaqueBasico, texMagoAtaqueFuego, texMagoCuracion;
@@ -91,6 +92,15 @@ int main() {
     /// ----- DECLARACION DE SPRITES ENEMIGOS -----
 
     sf::Sprite seguidorDelVillano, Golem_base2, Esqueleto1_base, Esqueleto2_base, Golem_base, Mago_Oscuro;
+
+    /// ----- DECLARACION DE TEXTURAS HUD -----
+
+    sf::Texture tex5posiones, tex4posiones, tex3posiones, tex2posiones, tex1posiones, tex0posiones;
+
+    /// ----- DECLARACION DE SPRITES HUD -----
+
+    sf::Sprite posiones5, posiones4, posiones3, posiones2, posiones1, posiones0;
+
 
 
     texFondoMenu.loadFromFile("FondoMenu.png");
@@ -119,7 +129,8 @@ int main() {
     texHistMago.loadFromFile("historiadelmago.png");
     sprHistMago.setTexture(texHistMago);
 
-///============SPRITE DEL MAGO==================
+
+///================SPRITE DEL MAGO===================
     texMago.loadFromFile("mago_sprite.png");
     Magobase.setTexture(texMago);
     Magobase.setPosition(65.f, 85.f);
@@ -135,6 +146,8 @@ int main() {
     texMagoCuracion.loadFromFile("MagoCuracion.png");
     MagoCuracion.setTexture(texMagoCuracion);
     MagoCuracion.setPosition(65.f, 85.f);
+
+
 ///============SPRITE DE GUERRERO==================
     texGuerre.loadFromFile("Guerrerobase.png");
     Guerrerobase.setTexture(texGuerre);
@@ -151,6 +164,7 @@ int main() {
     texGuerreAtaqueFeroz.loadFromFile("GuerreroAtaqueFeroz.png");
     GuerreAtaqueFeroz.setTexture(texGuerreAtaqueFeroz);
     GuerreAtaqueFeroz.setPosition(65.f, 10.f);
+
 
 ///============SPRITE DE ENEMIGOS==================
 
@@ -177,6 +191,36 @@ int main() {
     texMagoOscuro.loadFromFile("MagoOscuro.png");
     Mago_Oscuro.setTexture(texMagoOscuro);
     Mago_Oscuro.setPosition(450.f,65.f);
+
+///============SPRITE DEL HUD==================
+
+    tex5posiones.loadFromFile("5posiones.png");
+    posiones5.setTexture(tex5posiones);
+    posiones5.setPosition(230.f,-10.f);
+
+    tex4posiones.loadFromFile("4posiones.png");
+    posiones4.setTexture(tex4posiones);
+    posiones4.setPosition(230.f,-10.f);
+
+    tex3posiones.loadFromFile("3posiones.png");
+    posiones3.setTexture(tex3posiones);
+    posiones3.setPosition(230.f,-10.f);
+
+    tex2posiones.loadFromFile("2posiones.png");
+    posiones2.setTexture(tex2posiones);
+    posiones2.setPosition(230.f,-10.f);
+
+    tex1posiones.loadFromFile("1posion.png");
+    posiones1.setTexture(tex1posiones);
+    posiones1.setPosition(230.f,-10.f);
+
+    tex0posiones.loadFromFile("0posiones.png");
+    posiones0.setTexture(tex0posiones);
+    posiones0.setPosition(230.f,-10.f);
+
+
+
+
 
     // --- CARGA DE FUENTES Y TEXTOS ---
     sf::Font fuente;
@@ -554,8 +598,32 @@ int main() {
 
                     txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
-                    txtCuraciones.setString("Curaciones: " + std::to_string(heroe->getCuracionesRestantes()) + "/5");
-                    window.draw(txtCuraciones);
+
+                    if (heroe->getCuracionesRestantes() == 5)
+                    {
+                    window.draw(posiones5);
+                    }
+                        else if (heroe->getCuracionesRestantes() == 4)
+                        {
+                            window.draw(posiones4);
+
+                            }else if (heroe->getCuracionesRestantes() == 3)
+                            {
+                                window.draw(posiones3);
+
+                                }else if (heroe->getCuracionesRestantes() == 2)
+                                {
+                                    window.draw(posiones2);
+
+                                    }else if (heroe->getCuracionesRestantes() == 1)
+                                    {
+                                        window.draw(posiones1);
+
+                                        }else if (heroe->getCuracionesRestantes() == 0)
+                                        {
+                                            window.draw(posiones0);
+
+                                            }
                 }
 
                 if (seleccionEnem == 1) window.draw(Esqueleto1_base);
