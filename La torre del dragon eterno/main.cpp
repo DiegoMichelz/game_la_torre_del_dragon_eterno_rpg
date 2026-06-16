@@ -43,12 +43,18 @@ int main() {
     bool esperandoContraataque = false;
     sf::Clock clock;
 
-    sf::SoundBuffer bufferMusicIntro;
+    /*sf::SoundBuffer bufferMusicIntro;
     bufferMusicIntro.loadFromFile("MusicaIntro.wav");
-    sf::Sound soundMusicIntro;
+    sf::Music soundMusicIntro;
     soundMusicIntro.setBuffer(bufferMusicIntro);
 
-    soundMusicIntro.setVolume(15.0f);
+    soundMusicIntro.setVolume(20.0f);*/
+    sf::Music musicaFondo; // Cambiamos Sound por Music
+    if (!musicaFondo.openFromFile("MusicaIntro.wav")) {
+        std::cout << "Error: No se pudo cargar la música" << std::endl;
+    }
+    musicaFondo.setLoop(true); // Para que la intro se repita
+    musicaFondo.setVolume(20.0f);
 
 
     /// ------------------ DECLARACION DE TEXTURAS Y SPRITES ------------------
@@ -80,11 +86,11 @@ int main() {
 
     /// ----- DECLARACION DE TEXTURAS ENEMIGOS -----
 
-    sf::Texture texGolem2,texSeguidorDelvillano, texEsque1eto1, texEsqueleto2, texGolem;
+    sf::Texture texGolem2,texSeguidorDelvillano, texEsque1eto1, texEsqueleto2, texGolem, texMagoOscuro;
 
-    /// ----- DECLARACION DE TEXTURAS ENEMIGOS -----
+    /// ----- DECLARACION DE SPRITES ENEMIGOS -----
 
-    sf::Sprite seguidorDelVillano, Golem_base2, Esqueleto1_base, Esqueleto2_base, Golem_base;
+    sf::Sprite seguidorDelVillano, Golem_base2, Esqueleto1_base, Esqueleto2_base, Golem_base, Mago_Oscuro;
 
 
     texFondoMenu.loadFromFile("FondoMenu.png");
@@ -168,6 +174,10 @@ int main() {
     Golem_base2.setTexture(texGolem2);
     Golem_base2.setPosition(410.f, 65.f);
 
+    texMagoOscuro.loadFromFile("MagoOscuro.png");
+    Mago_Oscuro.setTexture(texMagoOscuro);
+    Mago_Oscuro.setPosition(450.f,65.f);
+
     // --- CARGA DE FUENTES Y TEXTOS ---
     sf::Font fuente;
     fuente.loadFromFile("arial.ttf");
@@ -210,7 +220,7 @@ int main() {
     txtVic.setPosition(150, 250);
     txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
-     soundMusicIntro.play();
+     musicaFondo.play();
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
@@ -236,7 +246,6 @@ int main() {
                         if (event.key.code == sf::Keyboard::Enter) estadoActual = SELECCION_PERSONAJE;
                         break;
                     case SELECCION_PERSONAJE:
-                            soundMusicIntro.stop();
                             if (event.key.code == sf::Keyboard::G) {
                             heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
                             seleccion = 0;
@@ -254,10 +263,13 @@ int main() {
                         break;
                     case HISTORIA_GUERRERO:
                             if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
+                            musicaFondo.stop();
                         break;
 
                     case HISTORIA_MAGO:
                             if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
+                            musicaFondo.stop();
+                        break;
 
                     case COMBATE_NIVEL_1:
 
@@ -425,9 +437,9 @@ int main() {
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new Golem("Golem de Piedra", 240, 18, 14, 50);
+                                            enemigoActual = new MagoOscuro("Mago Oscuro", 180, 27, 12, 50);
                                     seleccionEnem = 3;
-                                    txtInfoCombate.setString("¡Un Golem bloquea el paso!");
+                                    txtInfoCombate.setString("¡Aparece un Mago Oscuro!");
                                     turnoJugador = true; }
                                     else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
                                 } else {
@@ -609,7 +621,7 @@ int main() {
 
                 if (seleccionEnem == 1) window.draw(seguidorDelVillano);
                 else if (seleccionEnem == 2) window.draw(Golem_base2);
-                else window.draw(Golem_base);
+                else window.draw(Mago_Oscuro);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
