@@ -54,7 +54,7 @@ int main() {
         std::cout << "Error: No se pudo cargar la música" << std::endl;
     }
     musicaFondo.setLoop(true); // Para que la intro se repita
-    musicaFondo.setVolume(20.0f);
+    musicaFondo.setVolume(80.0f);
 
 
     /// ------------------ DECLARACION DE TEXTURAS Y SPRITES ------------------
@@ -441,11 +441,17 @@ int main() {
                                     cambioDePostura = 1;
                                     clock.restart();
                             }else if (event.key.code == sf::Keyboard::B){
-                                // Validamos si tiene suficiente energía (ejemplo: requiere 30)
-                                if (heroe->getEnergia() >= 30) {
+                                // Definimos el costo según el tipo de personaje
+                                int costo = 30; // Costo por defecto (Mago)
+                                if (seleccion == 0) { // Si es Guerrero
+                                    costo = 40;
+                                }
+
+                                // Validamos si tiene suficiente energía
+                                if (heroe->getEnergia() >= costo) {
                                     heroe->ataqueEspecial(enemigoActual);
-                                    heroe->gastarEnergia(30);
-                                    txtInfoCombate.setString("Ataque Especial!");
+                                    heroe->gastarEnergia(costo);
+                                    txtInfoCombate.setString("¡Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
                                     clock.restart();
@@ -460,7 +466,8 @@ int main() {
                                         // Curarse también recupera energía
                                         //heroe->recuperarEnergia(15);
                                         txtInfoCombate.setString("Te curaste!");
-                                        accionRealizada = true;
+                                        //accionRealizada = true;
+                                        //turnoJugador = true;
                                         cambioDePostura = 3;
                                         clock.restart();
                                     }else {
@@ -710,9 +717,9 @@ int main() {
                                             }
                 }
 
-                if (seleccionEnem == 1) window.draw(seguidorDelVillano);
-                else if (seleccionEnem == 2) window.draw(Golem_base2);
-                else window.draw(Mago_Oscuro);
+                if (seleccionEnem == 1){ window.draw(seguidorDelVillano);
+                }else if (seleccionEnem == 2){ window.draw(Golem_base2);
+                } else window.draw(Mago_Oscuro);
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
