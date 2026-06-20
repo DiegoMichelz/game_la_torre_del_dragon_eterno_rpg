@@ -326,7 +326,7 @@ int main() {
                                 // Asignación de energía por ataque básico
                                     int ganancia = 10;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
-                                        ganancia = 15;
+                                        ganancia = 20;
                                     }
                                     heroe->recuperarEnergia(ganancia);
                                     txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
@@ -431,9 +431,9 @@ int main() {
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                    // Asignación de energía por ataque básico
-                                    int ganancia = 10;//si es guerrero
+                                    int ganancia = 12;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
-                                        ganancia = 15;
+                                        ganancia = 22;
                                     }
                                     heroe->recuperarEnergia(ganancia);
                                     txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
@@ -488,7 +488,7 @@ int main() {
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new MagoOscuro("Mago Oscuro", 180, 27, 12, 50);
+                                            enemigoActual = new MagoOscuro("Mago Oscuro", 172, 22, 12, 50);
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Aparece un Mago Oscuro!");
                                     turnoJugador = true; }
@@ -690,6 +690,12 @@ int main() {
 
                     txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
+
+                    /*void dibujarPociones(sf::RenderWindow& window, int cantidad, sf::Sprite sprites[]) {
+                        if(cantidad >= 0 && cantidad <= 5) {
+                            window.draw(sprites[cantidad]);
+                        }
+                    }*/
                     if (heroe->getCuracionesRestantes() == 5)
                     {
                     window.draw(posiones5);

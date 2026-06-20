@@ -10,4 +10,5 @@ class Mago : public Heroe {
         void mostrarEstadisticas() override;
         void curarse() override;
         void ataqueEspecial(Enemigo* objetivo) override;
+        void subirNivel() override;
 };

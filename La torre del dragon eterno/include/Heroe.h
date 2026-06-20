@@ -20,7 +20,7 @@ class Heroe : public Personaje {
 
         //logica restauracion y subida de nivel
         void restaurarTodo();
-        void subirNivel();
+        virtual void subirNivel()=0;
 
         // Métodos para manejar la energía
         int getEnergia() { return energia; }
