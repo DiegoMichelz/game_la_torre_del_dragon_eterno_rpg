@@ -184,7 +184,7 @@ int main() {
 
     texGolem.loadFromFile("golemdepiedrabase_sprite.png");
     Golem_base.setTexture(texGolem);
-    Golem_base.setPosition(410.f, 65.f);
+    Golem_base.setPosition(380.f, 65.f);
 
     texSeguidorDelvillano.loadFromFile("SeguidorDelVillano.png");
     seguidorDelVillano.setTexture(texSeguidorDelvillano);
@@ -192,23 +192,23 @@ int main() {
 
     texGolem2.loadFromFile("golemDePIedralvl2.png");
     Golem_base2.setTexture(texGolem2);
-    Golem_base2.setPosition(410.f, 65.f);
+    Golem_base2.setPosition(380.f, 65.f);
 
     texMagoOscuro.loadFromFile("MagoOscuro.png");
     Mago_Oscuro.setTexture(texMagoOscuro);
-    Mago_Oscuro.setPosition(450.f,65.f);
+    Mago_Oscuro.setPosition(350.f,65.f);
 
     texGuerreroZombie.loadFromFile("GuerreroZombie.png");
     Guerrero_zombie.setTexture(texGuerreroZombie);
-    Guerrero_zombie.setPosition(450.f, 65.f);
+    Guerrero_zombie.setPosition(350.f, 75.f);
 
     texMagohuman.loadFromFile("Magohuman.png");
     Mago_human.setTexture(texMagohuman);
-    Mago_human.setPosition(450.f, 65.f);
+    Mago_human.setPosition(390.f, 65.f);
 
     texMagodragon.loadFromFile("jefeFinal.png");
     Mago_dragon.setTexture(texMagodragon);
-    Mago_dragon.setPosition(450.f, 65.f);
+    Mago_dragon.setPosition(380.f, 05.f);
 
 ///============SPRITE DEL HUD==================
 
@@ -456,6 +456,16 @@ int main() {
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_3;
 
+                        }
+                        break;
+
+                    case VICTORIA_PISO3:
+                        if (event.key.code == sf::Keyboard::Enter){
+                            if(enemigoActual != nullptr){
+                                delete enemigoActual;
+                                enemigoActual = nullptr;
+                            }
+                            estadoActual = MENU_PRINCIPAL;
                         }
                         break;
 ///=================================================================================================================
