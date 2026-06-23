@@ -29,6 +29,8 @@ enum EstadoJuego {
     COMBATE_NIVEL_2,
     COMBATE_NIVEL_3,
     VICTORIA_PISO,
+    VICTORIA_PISO2,
+    VICTORIA_PISO3,
     GAME_OVER
 };
 
@@ -62,7 +64,7 @@ int main() {
     sf::Texture texFondoMenu;
     sf::Texture textFondoSeleccionP;
     sf::Texture texFondo, texFondo2, texFondo3;
-    sf::Texture texFondoVicPiso;
+    sf::Texture texFondoVicPiso, texFondoVicFin;
     sf::Texture texHist1, texHist2, texHist3, texHistGuerrero, texHistMago;
 
     /// ----- DECLARACION DE SPRITES FONDOS -----
@@ -70,7 +72,7 @@ int main() {
     sf::Sprite fondoMenu;
     sf::Sprite FondoSeleccionP;
     sf::Sprite fondolv1, fondolv2, fondolv3;
-    sf::Sprite fondoVicPiso;
+    sf::Sprite fondoVicPiso,fondoVicFin;
     sf::Sprite sprHist1, sprHist2, sprHist3, sprHistGuerrero, sprHistMago;
 
     /// ----- DECLARACION DE TEXTURAS HEROES -----
@@ -112,11 +114,15 @@ int main() {
 
     texFondo2.loadFromFile("fondo_nivel2.png");
     fondolv2.setTexture(texFondo2);
+
     texFondo3.loadFromFile("fondo_nivel3.png");
     fondolv3.setTexture(texFondo3);
 
     texFondoVicPiso.loadFromFile ("Victoriadepiso.png");
     fondoVicPiso.setTexture(texFondoVicPiso);
+
+    texFondoVicFin.loadFromFile ("victoriaFinal.png");
+    fondoVicFin.setTexture(texFondoVicFin);
 
     texHist1.loadFromFile("historia1.png");
     sprHist1.setTexture(texHist1);
@@ -303,7 +309,7 @@ int main() {
                         break;
                     case SELECCION_PERSONAJE:
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
+                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
                             seleccion = 0;
                             estadoActual = HISTORIA_GUERRERO;
 
@@ -431,8 +437,27 @@ int main() {
                         }
                         break;
 
+                    case VICTORIA_PISO2:
+                        if (event.key.code == sf::Keyboard::Enter)
+                        {
+                                         // Borramos el enemigo anterior si quedó alguno
+                            if (enemigoActual != nullptr) {
+                                delete enemigoActual;
+                                enemigoActual = nullptr;
+                            }
+                            //transicion a nivel 2
+                            heroe->subirNivel(); //restauramos todo e incremento stats
+                            turnoJugador = true; // El jugador siempre empieza
+                            esperandoContraataque = false;// Limpiamos estados viejos
+                            cambioDePostura = 0;
+                            clock.restart();
+                            // Creamos el primer enemigo del Nivel 2
+                            enemigoActual = new GuerreroZombie("Guerrero zombie", 140, 18, 7, 50);
+                            seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
+                            estadoActual = COMBATE_NIVEL_3;
 
-
+                        }
+                        break;
 ///=================================================================================================================
                     case COMBATE_NIVEL_2:
 
@@ -504,7 +529,7 @@ int main() {
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Aparece un Mago Oscuro!");
                                     turnoJugador = true; }
-                                    else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
+                                    else { estadoActual = VICTORIA_PISO2; turnoJugador = true; }
                                 } else {
                                     esperandoContraataque = true;
                                     clock.restart();
@@ -574,35 +599,36 @@ int main() {
                                     enemigoActual = nullptr;
                                     esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
-                                            enemigoActual = new GolemOscuro("Golem Oscuro", 240, 18, 14, 50);
+                                            enemigoActual = new MagoHuman("MagoHumano", 240, 18, 14, 50);
                                     seleccionEnem = 2;
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new MagoOscuro("Mago Oscuro", 172, 22, 12, 50);
+                                            enemigoActual = new MagoDragon("MagoDragon", 172, 22, 12, 50);
                                     seleccionEnem = 3;
                                     txtInfoCombate.setString("¡Aparece un Mago Oscuro!");
                                     turnoJugador = true; }
-                                    else { estadoActual = VICTORIA_PISO; turnoJugador = true; }
+                                    else { estadoActual = VICTORIA_PISO3; turnoJugador = true; }
                                 } else {
                                     esperandoContraataque = true;
                                     clock.restart();
                                     txtInfoCombate.setString("Espero el contraataque...");
                                 }
-                                if (!enemigoActual->estaVivo()) {
+                                /*if (!enemigoActual->estaVivo()) {
                                     if (seleccionEnem == 2) { // Si el Mago Humano muere
                                         delete enemigoActual;
                                         // Transformación a Mago Dragón
-                                        enemigoActual = new MagoDragon("Mago Dragón", 250, 45, 10, 80);
+                                       enemigoActual = new MagoDragon("Mago Dragón", 250, 45, 10, 80);
                                         seleccionEnem = 3; // Cambiamos el ID para renderizar el nuevo sprite
                                         std::cout << "¡El Mago se transforma en un imponente Dragón!" << std::endl;
                                     } else {
                                         estadoActual = VICTORIA_PISO; // Victoria final tras derrotar al Dragón
                                     }
-                                }
+                                }*/
                             }
                         break;
                     }
+
                     case GAME_OVER:{
                         if (event.key.code == sf::Keyboard::Enter) {
 
@@ -910,16 +936,32 @@ int main() {
                                             }
                 }
 
-
-                if (seleccionEnem == 1) {
+                  if (seleccionEnem == 1){ window.draw(Guerrero_zombie);
+                }else if (seleccionEnem == 2){ window.draw(Mago_human);
+                } else window.draw(Mago_dragon);
+                window.draw(txtInfoCombate);
+                window.draw(txtControles);
+                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                    window.draw(txtVida);
+                }
+                if (enemigoActual) {
+                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    window.draw(txtVidaEn);
+                }
+               /* if (seleccionEnem == 1) {
                     window.draw(Guerrero_zombie);
                 } else if (seleccionEnem == 2) {
                     window.draw(Mago_human);
                 } else if (seleccionEnem == 3) {
                     window.draw(Mago_dragon); // Tu nuevo sprite
-                }
+                }*/
+
                 break;
             case VICTORIA_PISO: window.draw(fondoVicPiso);
+                break;
+            case VICTORIA_PISO2: window.draw(fondoVicPiso);
+                break;
+            case VICTORIA_PISO3: window.draw(fondoVicFin);
                 break;
             case GAME_OVER:
                 sf::Text txtGov("GAME OVER.\nPresione ENTER para reintentar.", fuente, 30);
