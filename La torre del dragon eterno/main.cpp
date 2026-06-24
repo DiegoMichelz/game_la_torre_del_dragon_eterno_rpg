@@ -831,7 +831,7 @@ int main() {
 
                 /*if (seleccionEnem == 1) window.draw(Esqueleto1_base);
                 else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
-                else window.draw(Golem_base);
+                else window.draw(Golem_base);*/
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
@@ -840,7 +840,7 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
-                }*/
+                }
 
                 if (enemigoActual != nullptr) {
                     sf::Sprite* sprEnemigo = nullptr;
@@ -948,7 +948,7 @@ int main() {
 
                 /*if (seleccionEnem == 1){ window.draw(seguidorDelVillano);
                 }else if (seleccionEnem == 2){ window.draw(Golem_base2);
-                } else window.draw(Mago_Oscuro);
+                } else window.draw(Mago_Oscuro);*/
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
@@ -957,7 +957,7 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
-                }*/
+                }
 
                 if (enemigoActual != nullptr) {
                     sf::Sprite* sprEnemigo = nullptr;
@@ -1061,7 +1061,7 @@ int main() {
 
                 /*if (seleccionEnem == 1){ window.draw(Guerrero_zombie);
                 }else if (seleccionEnem == 2){ window.draw(Mago_human);
-                } else window.draw(Mago_dragon);
+                } else window.draw(Mago_dragon);*/
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
                 if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
@@ -1070,7 +1070,7 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
-                }*/
+                }
 
                 if (enemigoActual != nullptr) {
                     sf::Sprite* sprEnemigo = nullptr;
