@@ -312,7 +312,7 @@ int main() {
                         break;
                     case SELECCION_PERSONAJE:
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
                             seleccion = 0;
                             estadoActual = HISTORIA_GUERRERO;
 
@@ -455,7 +455,7 @@ int main() {
                             cambioDePostura = 0;
                             clock.restart();
                             // Creamos el primer enemigo del Nivel 2
-                            enemigoActual = new GuerreroZombie("Guerrero zombie", 140, 18, 7, 50);
+                            enemigoActual = new GuerreroZombie("Guerrero zombie", 180, 18, 15, 50);
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_3;
 
@@ -612,12 +612,12 @@ int main() {
                                     enemigoActual = nullptr;
                                     esperandoContraataque = false;
                                     if (seleccionEnem == 1) {
-                                            enemigoActual = new MagoHuman("MagoHumano", 240, 18, 14, 50);
+                                            enemigoActual = new MagoHuman("MagoHumano", 220, 22, 10, 50);
                                     seleccionEnem = 2;
                                     txtInfoCombate.setString("¡Aparece un enemigo mas fuerte!");
                                     turnoJugador = true; }
                                     else if (seleccionEnem == 2) {
-                                            enemigoActual = new MagoDragon("MagoDragon", 172, 22, 12, 50);
+                                            enemigoActual = new MagoDragon("MagoDragon", 300, 30, 20, 50);
                                     seleccionEnem = 3;
                                     if (!enemigoActual->estaVivo()) {
                                         // ... tu código de delete y new ...
