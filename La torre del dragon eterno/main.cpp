@@ -48,6 +48,8 @@ int main() {
     bool turnoJugador = true;
     bool esperandoContraataque = false;
     sf::Clock clock;
+    bool enemigoGolpeado = false;
+    sf::Clock clockGolpe; // Reloj exclusivo para el parpadeo
 
     std::string musicaActual = "NINGUNA";
 
@@ -344,6 +346,8 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                 // Asignación de energía por ataque básico
                                     int ganancia = 10;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
@@ -369,6 +373,8 @@ int main() {
                                     txtInfoCombate.setString("¡Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                     clock.restart();
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
@@ -480,6 +486,8 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                    // Asignación de energía por ataque básico
                                     int ganancia = 12;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
@@ -504,6 +512,8 @@ int main() {
                                     txtInfoCombate.setString("¡Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                     clock.restart();
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
@@ -559,6 +569,8 @@ int main() {
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
                                     enemigoActual->recibirDanio(heroe->getAtaque());
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                    // Asignación de energía por ataque básico
                                     int ganancia = 12;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
@@ -583,6 +595,8 @@ int main() {
                                     txtInfoCombate.setString("¡Ataque Especial!");
                                     accionRealizada = true;
                                     cambioDePostura = 2;
+                                    enemigoGolpeado = true;
+                                    clockGolpe.restart();
                                     clock.restart();
                                 }else{
                                     txtInfoCombate.setString("¡Energia insuficiente!");
@@ -691,6 +705,9 @@ int main() {
         // y pasó medio segundo, lo devolvemos a la pose base (0)
         if (cambioDePostura != 0 && clock.getElapsedTime().asSeconds() >= 1.0f) {
             cambioDePostura = 0;
+        }
+        if (enemigoGolpeado && clockGolpe.getElapsedTime().asSeconds() >= 0.15f) {
+            enemigoGolpeado = false;
         }
 
         if (estadoActual == COMBATE_NIVEL_1 ||
@@ -812,7 +829,7 @@ int main() {
                                             }
                 }
 
-                if (seleccionEnem == 1) window.draw(Esqueleto1_base);
+                /*if (seleccionEnem == 1) window.draw(Esqueleto1_base);
                 else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
                 else window.draw(Golem_base);
                 window.draw(txtInfoCombate);
@@ -823,9 +840,36 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
+                }*/
+
+                if (enemigoActual != nullptr) {
+                    sf::Sprite* sprEnemigo = nullptr;
+
+                    // Asignamos el sprite según el nivel y la selección del enemigo actual
+                    if (estadoActual == COMBATE_NIVEL_1) {
+                        if (seleccionEnem == 1) sprEnemigo = &Esqueleto1_base;
+                        else if (seleccionEnem == 2) sprEnemigo = &Esqueleto2_base;
+                        else sprEnemigo = &Golem_base;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_2) {
+                        if (seleccionEnem == 1) sprEnemigo = &seguidorDelVillano;
+                        else if (seleccionEnem == 2) sprEnemigo = &Golem_base2;
+                        else sprEnemigo = &Mago_Oscuro;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_3) {
+                        if (seleccionEnem == 1) sprEnemigo = &Guerrero_zombie;
+                        else if (seleccionEnem == 2) sprEnemigo = &Mago_human;
+                        else sprEnemigo = &Mago_dragon;
+                    }
+
+                    // Aplicamos el efecto de color
+                    if (sprEnemigo != nullptr) {
+                        if (enemigoGolpeado) sprEnemigo->setColor(sf::Color::Red);
+                        else sprEnemigo->setColor(sf::Color::White);
+
+                        window.draw(*sprEnemigo); // ¡Aquí dibujamos el enemigo!
+                    }
                 }
-
-
 
 
                 break;
@@ -902,7 +946,7 @@ int main() {
                                             }
                 }
 
-                if (seleccionEnem == 1){ window.draw(seguidorDelVillano);
+                /*if (seleccionEnem == 1){ window.draw(seguidorDelVillano);
                 }else if (seleccionEnem == 2){ window.draw(Golem_base2);
                 } else window.draw(Mago_Oscuro);
                 window.draw(txtInfoCombate);
@@ -913,6 +957,35 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
+                }*/
+
+                if (enemigoActual != nullptr) {
+                    sf::Sprite* sprEnemigo = nullptr;
+
+                    // Asignamos el sprite según el nivel y la selección del enemigo actual
+                    if (estadoActual == COMBATE_NIVEL_1) {
+                        if (seleccionEnem == 1) sprEnemigo = &Esqueleto1_base;
+                        else if (seleccionEnem == 2) sprEnemigo = &Esqueleto2_base;
+                        else sprEnemigo = &Golem_base;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_2) {
+                        if (seleccionEnem == 1) sprEnemigo = &seguidorDelVillano;
+                        else if (seleccionEnem == 2) sprEnemigo = &Golem_base2;
+                        else sprEnemigo = &Mago_Oscuro;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_3) {
+                        if (seleccionEnem == 1) sprEnemigo = &Guerrero_zombie;
+                        else if (seleccionEnem == 2) sprEnemigo = &Mago_human;
+                        else sprEnemigo = &Mago_dragon;
+                    }
+
+                    // Aplicamos el efecto de color
+                    if (sprEnemigo != nullptr) {
+                        if (enemigoGolpeado) sprEnemigo->setColor(sf::Color::Red);
+                        else sprEnemigo->setColor(sf::Color::White);
+
+                        window.draw(*sprEnemigo); // ¡Aquí dibujamos el enemigo!
+                    }
                 }
 
 
@@ -986,7 +1059,7 @@ int main() {
                                             }
                 }
 
-                  if (seleccionEnem == 1){ window.draw(Guerrero_zombie);
+                /*if (seleccionEnem == 1){ window.draw(Guerrero_zombie);
                 }else if (seleccionEnem == 2){ window.draw(Mago_human);
                 } else window.draw(Mago_dragon);
                 window.draw(txtInfoCombate);
@@ -997,14 +1070,36 @@ int main() {
                 if (enemigoActual) {
                     txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
-                }
-               /* if (seleccionEnem == 1) {
-                    window.draw(Guerrero_zombie);
-                } else if (seleccionEnem == 2) {
-                    window.draw(Mago_human);
-                } else if (seleccionEnem == 3) {
-                    window.draw(Mago_dragon); // Tu nuevo sprite
                 }*/
+
+                if (enemigoActual != nullptr) {
+                    sf::Sprite* sprEnemigo = nullptr;
+
+                    // Asignamos el sprite según el nivel y la selección del enemigo actual
+                    if (estadoActual == COMBATE_NIVEL_1) {
+                        if (seleccionEnem == 1) sprEnemigo = &Esqueleto1_base;
+                        else if (seleccionEnem == 2) sprEnemigo = &Esqueleto2_base;
+                        else sprEnemigo = &Golem_base;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_2) {
+                        if (seleccionEnem == 1) sprEnemigo = &seguidorDelVillano;
+                        else if (seleccionEnem == 2) sprEnemigo = &Golem_base2;
+                        else sprEnemigo = &Mago_Oscuro;
+                    }
+                    else if (estadoActual == COMBATE_NIVEL_3) {
+                        if (seleccionEnem == 1) sprEnemigo = &Guerrero_zombie;
+                        else if (seleccionEnem == 2) sprEnemigo = &Mago_human;
+                        else sprEnemigo = &Mago_dragon;
+                    }
+
+                    // Aplicamos el efecto de color
+                    if (sprEnemigo != nullptr) {
+                        if (enemigoGolpeado) sprEnemigo->setColor(sf::Color::Red);
+                        else sprEnemigo->setColor(sf::Color::White);
+
+                        window.draw(*sprEnemigo); // ¡Aquí dibujamos el enemigo!
+                    }
+                }
 
                 break;
             case VICTORIA_PISO: window.draw(fondoVicPiso);
