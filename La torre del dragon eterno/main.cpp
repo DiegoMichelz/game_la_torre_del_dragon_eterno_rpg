@@ -49,6 +49,8 @@ int main() {
     bool esperandoContraataque = false;
     sf::Clock clock;
 
+    std::string musicaActual = "NINGUNA";
+
     sf::Music musicaFondo; // Cambiamos Sound por Music
     if (!musicaFondo.openFromFile("MusicaIntro.wav")) {
         std::cout << "Error: No se pudo cargar la música" << std::endl;
@@ -294,6 +296,7 @@ int main() {
                 switch (estadoActual) {
                     case MENU_PRINCIPAL:
 
+                    musicaFondo.setPitch(1.0f);
 
                         if (event.key.code == sf::Keyboard::Num1) estadoActual = HISTORIA_1;
                         if (event.key.code == sf::Keyboard::Escape) window.close();
@@ -616,7 +619,16 @@ int main() {
                                     else if (seleccionEnem == 2) {
                                             enemigoActual = new MagoDragon("MagoDragon", 172, 22, 12, 50);
                                     seleccionEnem = 3;
-                                    txtInfoCombate.setString("¡Aparece un Mago Oscuro!");
+                                    if (!enemigoActual->estaVivo()) {
+                                        // ... tu código de delete y new ...
+
+                                        // Aquí subes el volumen porque el combate se puso intenso
+                                        musicaFondo.setVolume(100.0f);
+
+                                        // Si quieres más dramatismo, podrías subir también el pitch (velocidad)
+                                        musicaFondo.setPitch(1.1f);
+                                    }
+                                    txtInfoCombate.setString("¡Aparece el Mago en forma de Dragon!");
                                     turnoJugador = true; }
                                     else { estadoActual = VICTORIA_PISO3; turnoJugador = true; }
                                 } else {
@@ -681,7 +693,35 @@ int main() {
             cambioDePostura = 0;
         }
 
-
+        if (estadoActual == COMBATE_NIVEL_1 ||
+            estadoActual == COMBATE_NIVEL_2 ||
+            estadoActual == COMBATE_NIVEL_3 ||
+            estadoActual == VICTORIA_PISO ||
+            estadoActual == VICTORIA_PISO2)
+        {
+            if (musicaActual != "BATALLA") {
+                musicaFondo.stop();
+                if (musicaFondo.openFromFile("MusicaBatalla.wav")) {
+                    musicaFondo.setLoop(true);
+                    musicaFondo.setVolume(70.0f);
+                    musicaFondo.play();
+                    musicaActual = "BATALLA";
+                }
+            }
+        }
+        else {
+            // Aquí solo entrará en MENU_PRINCIPAL, HISTORIA o VICTORIA_PISO3
+            if (musicaActual != "INTRO") {
+                musicaFondo.stop();
+                if (musicaFondo.openFromFile("MusicaIntro.wav")) {
+                    musicaFondo.setLoop(true);
+                    musicaFondo.setPitch(1.0f); // Reset de pitch al volver a la intro
+                    musicaFondo.setVolume(100.0f);
+                    musicaFondo.play();
+                    musicaActual = "INTRO";
+                }
+            }
+        }
         if (heroe && !heroe->estaVivo()) estadoActual = GAME_OVER;
 
         // RENDERIZADO
