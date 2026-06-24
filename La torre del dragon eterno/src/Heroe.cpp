@@ -27,11 +27,4 @@ void Heroe::restaurarTodo() {
     curacionesRestantes = 5;      // Restaurar curaciones
 }
 
-/*void Heroe::subirNivel() {
-    nivel++;
-    ataque += 5;   // Incremento de ataque
-    defensa += 2;  // Incremento de defensa
-    vidaMaxima += 20; // Incremento de vida máxima
-    energiaMax +=15;
-    restaurarTodo(); // Al subir de nivel, también se restaura
-}*/
+

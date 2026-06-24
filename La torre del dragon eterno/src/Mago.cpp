@@ -21,15 +21,28 @@ void Mago::mostrarEstadisticas() {
 }
 
 void Mago::curarse() {
-    vidaActual += 40;
+    if(nivel==1){
+        vidaActual += 38;
+    }else if (nivel==2){
+        vidaActual += 40;
+    }else if (nivel==3) vidaActual+=44;
     if (vidaActual > vidaMaxima) vidaActual = vidaMaxima;
 }
 
 void Mago::subirNivel() {
     nivel++;
-    ataque += 4;      // Menor incremento de ataque[cite: 2]
-    defensa += 4;     // Incremento de defensa bajo[cite: 2]
-    vidaMaxima += 25; // Vida baja[cite: 2]
-    energiaMax += 15; // Más mana para compensar su debilidad física
-    restaurarTodo();  // Aplica los nuevos máximos
+    if(nivel==2){
+            ataque += 4;
+            defensa += 4;
+            vidaMaxima += 25;
+            energiaMax += 15;
+            restaurarTodo();
+    }else if (nivel ==3){
+            ataque +=6;
+            defensa += 4;
+            vidaMaxima += 35;
+            energiaMax += 25;
+            restaurarTodo();
+    }
+
 }

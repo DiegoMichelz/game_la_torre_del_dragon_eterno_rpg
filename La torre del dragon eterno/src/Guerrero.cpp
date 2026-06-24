@@ -19,15 +19,28 @@ void Guerrero::mostrarEstadisticas() {
 }
 
 void Guerrero::curarse() {
-    vidaActual += 15;
+    if(nivel==1){
+        vidaActual += 10;
+    }else if (nivel==2){
+        vidaActual += 12;
+    }else if (nivel==3) vidaActual+=18;
     if (vidaActual > vidaMaxima) vidaActual = vidaMaxima;
 }
 
 void Guerrero::subirNivel() {
     nivel++;
-    ataque += 5;      // Fuerte incremento de ataque[cite: 4]
-    defensa += 3;     // ¡Más defensa para el guerrero![cite: 4]
-    vidaMaxima += 15; // Mucha más vida[cite: 4]
-    energiaMax += 8;  // Incremento moderado de estamina[cite: 4, 6]
-    restaurarTodo();  // Aplica los nuevos máximos[cite: 1]
+    if(nivel==2){
+
+        ataque += 5;
+        defensa += 3;
+        vidaMaxima += 15;
+        energiaMax += 8;
+        restaurarTodo();
+    }else if (nivel==3){
+        ataque += 7;
+        defensa += 3;
+        vidaMaxima += 25;
+        energiaMax += 12;
+        restaurarTodo();
+    }
 }

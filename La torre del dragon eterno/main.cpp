@@ -572,9 +572,9 @@ int main() {
                                     enemigoGolpeado = true;
                                     clockGolpe.restart();
                                    // Asignación de energía por ataque básico
-                                    int ganancia = 12;//si es guerrero
+                                    int ganancia = 14;//si es guerrero
                                     if (seleccion == 1) { // Si es mago
-                                        ganancia = 22;
+                                        ganancia = 24;
                                     }
                                     heroe->recuperarEnergia(ganancia);
                                     txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
