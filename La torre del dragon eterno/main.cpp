@@ -16,12 +16,15 @@
 #include "MagoHuman.h"
 #include "MagoDragon.h"
 
+using namespace std;
+
 // Definición de estados del juego
 enum EstadoJuego {
     MENU_PRINCIPAL,
     HISTORIA_1,
     HISTORIA_2,
     HISTORIA_3,
+    FUNCIONES_EXPLICADAS,
     SELECCION_PERSONAJE,
     HISTORIA_GUERRERO,
     HISTORIA_MAGO,
@@ -55,24 +58,24 @@ int main() {
     bool heroeGolpeado = false;
     sf::Clock clockGolpeHeroe;
 
-    std::string musicaActual = "NINGUNA";
+    string musicaActual = "NINGUNA";
 
     sf::Music musicaFondo; // Cambiamos Sound por Music
     if (!musicaFondo.openFromFile("MusicaIntro.wav")) {
-        std::cout << "Error: No se pudo cargar la música" << std::endl;
+        cout << "Error: No se pudo cargar la música" << endl;
     }
     musicaFondo.setLoop(true); // Para que la intro se repita
     musicaFondo.setVolume(45.0f);
 
     sf::SoundBuffer buffGolpeBasico, buffGolpeEspecial, buffMagia, buffFuego, buffCuracion, buffDamageTaken, buffGameOver;
 
-    if(!buffGolpeBasico.loadFromFile("audio/espada_basico.wav")) std::cout << "Error en audio/espada_basico.wav" << std::endl;
-    if(!buffGolpeEspecial.loadFromFile("audio/golpe_pesado.wav")) std::cout << "Error en audio/golpe_pesado.wav" << std::endl;
-    if(!buffMagia.loadFromFile("audio/magia_basico.wav")) std::cout << "Error en audio/magia_basico.wav" << std::endl;
-    if(!buffFuego.loadFromFile("audio/bola_fuego.wav")) std::cout << "Error en audio/bola_fuego.wav" << std::endl;
-    if(!buffCuracion.loadFromFile("audio/curacion.wav")) std::cout << "Error en audio/curacion.wav" << std::endl;
-    if(!buffDamageTaken.loadFromFile("audio/daniorecibido.wav")) std::cout << "Error en audio/daniorecibido.wav" << std::endl;
-    if(!buffGameOver.loadFromFile("audio/daniomuerte.wav")) std::cout << "Error en audio/daniomuerte.wav" << std::endl;
+    if(!buffGolpeBasico.loadFromFile("audio/espada_basico.wav")) cout << "Error en audio/espada_basico.wav" << endl;
+    if(!buffGolpeEspecial.loadFromFile("audio/golpe_pesado.wav")) cout << "Error en audio/golpe_pesado.wav" << endl;
+    if(!buffMagia.loadFromFile("audio/magia_basico.wav")) cout << "Error en audio/magia_basico.wav" << endl;
+    if(!buffFuego.loadFromFile("audio/bola_fuego.wav")) cout << "Error en audio/bola_fuego.wav" <<endl;
+    if(!buffCuracion.loadFromFile("audio/curacion.wav")) cout << "Error en audio/curacion.wav" << endl;
+    if(!buffDamageTaken.loadFromFile("audio/daniorecibido.wav")) cout << "Error en audio/daniorecibido.wav" << endl;
+    if(!buffGameOver.loadFromFile("audio/daniomuerte.wav")) cout << "Error en audio/daniomuerte.wav" << endl;
 
 
     sf::Sound sndGolpe, sndMagia, sndCuracion, sndEfectoHeroe, sndSistema;
@@ -87,7 +90,7 @@ int main() {
     sf::Texture texFondoMenu;
     sf::Texture textFondoSeleccionP;
     sf::Texture texFondo, texFondo2, texFondo3;
-    sf::Texture texFondoVicPiso, texFondoVicFin;
+    sf::Texture texFondoVicPiso, texFondoVicFin, texFondoExplicativo;
     sf::Texture texHist1, texHist2, texHist3, texHistGuerrero, texHistMago;
 
     /// ----- DECLARACION DE SPRITES FONDOS -----
@@ -95,7 +98,7 @@ int main() {
     sf::Sprite fondoMenu;
     sf::Sprite FondoSeleccionP;
     sf::Sprite fondolv1, fondolv2, fondolv3;
-    sf::Sprite fondoVicPiso,fondoVicFin;
+    sf::Sprite fondoVicPiso,fondoVicFin, fondoExplicativo;
     sf::Sprite sprHist1, sprHist2, sprHist3, sprHistGuerrero, sprHistMago;
 
     /// ----- DECLARACION DE TEXTURAS HEROES -----
@@ -143,6 +146,9 @@ int main() {
 
     texFondoVicPiso.loadFromFile ("Victoriadepiso.png");
     fondoVicPiso.setTexture(texFondoVicPiso);
+
+    texFondoExplicativo.loadFromFile ("Explicativadefunciones.png");
+    fondoExplicativo.setTexture(texFondoExplicativo);
 
     texFondoVicFin.loadFromFile ("victoriaFinal.png");
     fondoVicFin.setTexture(texFondoVicFin);
@@ -286,7 +292,7 @@ int main() {
     sf::Text txtEnergia;
     txtEnergia.setFont(fuente);
     txtEnergia.setCharacterSize(20);
-    txtEnergia.setFillColor(sf::Color::Cyan); // Azul para Mana, o Verde para Estamina
+    txtEnergia.setFillColor(sf::Color::Cyan);
     txtEnergia.setPosition(30.f, 35.f);
 
     sf::Text txtCuraciones;
@@ -295,11 +301,6 @@ int main() {
     txtCuraciones.setFillColor(sf::Color::White);
     txtCuraciones.setPosition(200.f, 12.f);
 
-    txtVic.setFont(fuente);
-    txtVic.setCharacterSize(30);
-    txtVic.setFillColor(sf::Color::Green);
-    txtVic.setPosition(150, 250);
-    txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
     musicaFondo.play();
 
@@ -323,7 +324,7 @@ int main() {
 
 
 
-                    musicaFondo.setPitch(1.0f);
+                        musicaFondo.setPitch(1.0f);
 
                         if (event.key.code == sf::Keyboard::Num1) estadoActual = HISTORIA_1;
                         if(event.key.code == sf::Keyboard::C){
@@ -331,19 +332,19 @@ int main() {
 
 
                         if (nivelDeGuardado == 2) {
-                        estadoActual = COMBATE_NIVEL_2;
+                            estadoActual = COMBATE_NIVEL_2;
 
-                        enemigoActual = new SeguidordelVillano("Seguidor del Villano", 140, 18, 7, 50);
-                        seleccionEnem = 1;
+                            enemigoActual = new SeguidordelVillano("Seguidor del Villano", 140, 18, 7, 50);
+                            seleccionEnem = 1;
 
-                        Partida = fopen("Partida.dat", "rb");
-                        fread(&seleccion, sizeof(seleccion), 1, Partida);
+                            Partida = fopen("Partida.dat", "rb");
+                            fread(&seleccion, sizeof(seleccion), 1, Partida);
 
                         if (seleccion == 0){
-                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            heroe = new Guerrero("Guerrero", 185, 25, 11, 108);
                             seleccion = 0;
                         }else if(seleccion == 1){
-                            heroe = new Mago("Mago", 150, 15, 5, 140);
+                            heroe = new Mago("Mago", 175, 19, 9, 155);
                             seleccion = 1;
                         }
                         fclose(Partida);
@@ -359,10 +360,10 @@ int main() {
                         fread(&seleccion, sizeof(seleccion), 1, Partida);
 
                         if (seleccion == 0){
-                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            heroe = new Guerrero("Guerrero", 210, 32, 14, 120);
                             seleccion = 0;
                         }else if(seleccion == 1){
-                            heroe = new Mago("Mago", 150, 15, 5, 140);
+                            heroe = new Mago("Mago", 210 , 25, 13, 180);
                             seleccion = 1;
                         }
                         fclose(Partida);
@@ -383,7 +384,7 @@ int main() {
                         break;
                     case SELECCION_PERSONAJE:
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
                             seleccion = 0;
                             estadoActual = HISTORIA_GUERRERO;
 
@@ -397,20 +398,21 @@ int main() {
                             seleccionEnem = 1;
                         }
 
-                            nivelDeGuardado = 1;
-                            Partida = fopen("Partida.dat", "wb");
-                            fwrite(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
-                            fclose(Partida);
                         break;
                     case HISTORIA_GUERRERO:
-                            if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
+                            if (event.key.code == sf::Keyboard::Enter) estadoActual = FUNCIONES_EXPLICADAS;
                             musicaFondo.stop();
+
                         break;
 
                     case HISTORIA_MAGO:
-                            if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
+                            if (event.key.code == sf::Keyboard::Enter) estadoActual = FUNCIONES_EXPLICADAS;
                             musicaFondo.stop();
+
                         break;
+
+                    case FUNCIONES_EXPLICADAS:
+                        if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
 
                     case COMBATE_NIVEL_1:
 
@@ -435,7 +437,7 @@ int main() {
                                         ganancia = 20;
                                     }
                                     heroe->recuperarEnergia(ganancia);
-                                    txtInfoCombate.setString("Atacaste! (Energia +" + std::to_string(ganancia) + ")");
+                                    txtInfoCombate.setString("Atacaste! (Energia +" + to_string(ganancia) + ")");
                                     accionRealizada = true;
                                     cambioDePostura = 1;
                                     clock.restart();
@@ -879,35 +881,6 @@ int main() {
             enemigoGolpeado = false;
         }
 
-        /*if (estadoActual == COMBATE_NIVEL_1 ||
-            estadoActual == COMBATE_NIVEL_2 ||
-            estadoActual == COMBATE_NIVEL_3 ||
-            estadoActual == VICTORIA_PISO ||
-            estadoActual == VICTORIA_PISO2)
-        {
-            if (musicaActual != "BATALLA") {
-                musicaFondo.stop();
-                if (musicaFondo.openFromFile("MusicaBatalla.wav")) {
-                    musicaFondo.setLoop(true);
-                    musicaFondo.setVolume(25.0f);
-                    musicaFondo.play();
-                    musicaActual = "BATALLA";
-                }
-            }
-        }
-        else {
-            // Aquí solo entrará en MENU_PRINCIPAL, HISTORIA o VICTORIA_PISO3
-            if (musicaActual != "INTRO") {
-                musicaFondo.stop();
-                if (musicaFondo.openFromFile("MusicaIntro.wav")) {
-                    musicaFondo.setLoop(true);
-                    musicaFondo.setPitch(1.0f); // Reset de pitch al volver a la intro
-                    musicaFondo.setVolume(100.0f);
-                    musicaFondo.play();
-                    musicaActual = "INTRO";
-                }
-            }
-        }*/
 
         bool esCombateOPerdida = (estadoActual == COMBATE_NIVEL_1 ||
                          estadoActual == COMBATE_NIVEL_2 ||
@@ -948,11 +921,12 @@ int main() {
                 break;
             case SELECCION_PERSONAJE:
                  window.draw(FondoSeleccionP);
-
                 break;
             case HISTORIA_GUERRERO: window.draw(sprHistGuerrero);
                 break;
             case HISTORIA_MAGO: window.draw(sprHistMago);
+                break;
+            case FUNCIONES_EXPLICADAS: window.draw(fondoExplicativo);
                 break;
 ///======================================================
             case COMBATE_NIVEL_1:
@@ -995,7 +969,7 @@ int main() {
 
 
                 if (heroe) {
-                    std::string nombreEnergia;
+                    string nombreEnergia;
 
                     // Si seleccion es 1 (Mago), el nombre es "Mana", si no, es "Estamina"
                     if (seleccion == 1) {
@@ -1004,7 +978,7 @@ int main() {
                         nombreEnergia = "Estamina: ";
                     }
 
-                    txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
+                    txtEnergia.setString(nombreEnergia + to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
 
                     if (heroe->getCuracionesRestantes() == 5)
@@ -1034,16 +1008,13 @@ int main() {
                                             }
                 }
 
-                /*if (seleccionEnem == 1) window.draw(Esqueleto1_base);
-                else if (seleccionEnem == 2) window.draw(Esqueleto2_base);
-                else window.draw(Golem_base);*/
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
-                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                if (heroe) { txtVida.setString("HP Heroe: " + to_string(heroe->getVidaActual()));
                     window.draw(txtVida);
                 }
                 if (enemigoActual) {
-                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    txtVidaEn.setString("HP Enemigo: " + to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
                 }
 
@@ -1120,7 +1091,7 @@ int main() {
 
 
                 if (heroe) {
-                    std::string nombreEnergia;
+                    string nombreEnergia;
 
                     // Si seleccion es 1 (Mago), el nombre es "Mana", si no, es "Estamina"
                     if (seleccion == 1) {
@@ -1129,7 +1100,7 @@ int main() {
                         nombreEnergia = "Estamina: ";
                     }
 
-                    txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
+                    txtEnergia.setString(nombreEnergia + to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
 
                     /*void dibujarPociones(sf::RenderWindow& window, int cantidad, sf::Sprite sprites[]) {
@@ -1164,16 +1135,13 @@ int main() {
                                             }
                 }
 
-                /*if (seleccionEnem == 1){ window.draw(seguidorDelVillano);
-                }else if (seleccionEnem == 2){ window.draw(Golem_base2);
-                } else window.draw(Mago_Oscuro);*/
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
-                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                if (heroe) { txtVida.setString("HP Heroe: " + to_string(heroe->getVidaActual()));
                     window.draw(txtVida);
                 }
                 if (enemigoActual) {
-                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    txtVidaEn.setString("HP Enemigo: " + to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
                 }
 
@@ -1251,7 +1219,7 @@ int main() {
 
 
                 if (heroe) {
-                    std::string nombreEnergia;
+                    string nombreEnergia;
 
                     // Si seleccion es 1 (Mago), el nombre es "Mana", si no, es "Estamina"
                     if (seleccion == 1) {
@@ -1260,7 +1228,7 @@ int main() {
                         nombreEnergia = "Estamina: ";
                     }
 
-                    txtEnergia.setString(nombreEnergia + std::to_string(heroe->getEnergia()));
+                    txtEnergia.setString(nombreEnergia + to_string(heroe->getEnergia()));
                     window.draw(txtEnergia);
 
                     if (heroe->getCuracionesRestantes() == 5)
@@ -1290,16 +1258,14 @@ int main() {
                                             }
                 }
 
-                /*if (seleccionEnem == 1){ window.draw(Guerrero_zombie);
-                }else if (seleccionEnem == 2){ window.draw(Mago_human);
-                } else window.draw(Mago_dragon);*/
+
                 window.draw(txtInfoCombate);
                 window.draw(txtControles);
-                if (heroe) { txtVida.setString("HP Heroe: " + std::to_string(heroe->getVidaActual()));
+                if (heroe) { txtVida.setString("HP Heroe: " + to_string(heroe->getVidaActual()));
                     window.draw(txtVida);
                 }
                 if (enemigoActual) {
-                    txtVidaEn.setString("HP Enemigo: " + std::to_string(enemigoActual->getVidaActual()));
+                    txtVidaEn.setString("HP Enemigo: " + to_string(enemigoActual->getVidaActual()));
                     window.draw(txtVidaEn);
                 }
 
