@@ -329,10 +329,7 @@ int main() {
                         if(event.key.code == sf::Keyboard::C){
 
 
-                        if (nivelDeGuardado == 1) {
-                        estadoActual = COMBATE_NIVEL_1;
 
-                        }
                         if (nivelDeGuardado == 2) {
                         estadoActual = COMBATE_NIVEL_2;
 
