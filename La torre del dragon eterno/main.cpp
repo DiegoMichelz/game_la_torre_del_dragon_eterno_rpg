@@ -50,6 +50,9 @@ int main() {
     sf::Clock clock;
     bool enemigoGolpeado = false;
     sf::Clock clockGolpe; // Reloj exclusivo para el parpadeo
+    // Variables para el parpadeo del héroe al recibir daño
+    bool heroeGolpeado = false;
+    sf::Clock clockGolpeHeroe;
 
     std::string musicaActual = "NINGUNA";
 
@@ -60,16 +63,18 @@ int main() {
     musicaFondo.setLoop(true); // Para que la intro se repita
     musicaFondo.setVolume(45.0f);
 
-    sf::SoundBuffer buffGolpeBasico, buffGolpeEspecial, buffMagia, buffFuego, buffCuracion;
+    sf::SoundBuffer buffGolpeBasico, buffGolpeEspecial, buffMagia, buffFuego, buffCuracion, buffDamageTaken, buffGameOver;
 
     if(!buffGolpeBasico.loadFromFile("audio/espada_basico.wav")) std::cout << "Error en audio/espada_basico.wav" << std::endl;
     if(!buffGolpeEspecial.loadFromFile("audio/golpe_pesado.wav")) std::cout << "Error en audio/golpe_pesado.wav" << std::endl;
     if(!buffMagia.loadFromFile("audio/magia_basico.wav")) std::cout << "Error en audio/magia_basico.wav" << std::endl;
     if(!buffFuego.loadFromFile("audio/bola_fuego.wav")) std::cout << "Error en audio/bola_fuego.wav" << std::endl;
     if(!buffCuracion.loadFromFile("audio/curacion.wav")) std::cout << "Error en audio/curacion.wav" << std::endl;
+    if(!buffDamageTaken.loadFromFile("audio/daniorecibido.wav")) std::cout << "Error en audio/daniorecibido.wav" << std::endl;
+    if(!buffGameOver.loadFromFile("audio/daniomuerte.wav")) std::cout << "Error en audio/daniomuerte.wav" << std::endl;
 
 
-    sf::Sound sndGolpe, sndMagia, sndCuracion;
+    sf::Sound sndGolpe, sndMagia, sndCuracion, sndEfectoHeroe;
 
     sndGolpe.setVolume(100.0f);
     sndMagia.setVolume(100.0f);
@@ -706,17 +711,7 @@ int main() {
                                     clock.restart();
                                     txtInfoCombate.setString("Espero el contraataque...");
                                 }
-                                /*if (!enemigoActual->estaVivo()) {
-                                    if (seleccionEnem == 2) { // Si el Mago Humano muere
-                                        delete enemigoActual;
-                                        // Transformación a Mago Dragón
-                                       enemigoActual = new MagoDragon("Mago Dragón", 250, 45, 10, 80);
-                                        seleccionEnem = 3; // Cambiamos el ID para renderizar el nuevo sprite
-                                        std::cout << "¡El Mago se transforma en un imponente Dragón!" << std::endl;
-                                    } else {
-                                        estadoActual = VICTORIA_PISO; // Victoria final tras derrotar al Dragón
-                                    }
-                                }*/
+
                             }
                         break;
                     }
@@ -748,6 +743,10 @@ int main() {
         if (esperandoContraataque && clock.getElapsedTime().asSeconds() >= 2.0f) {
             if (enemigoActual!=nullptr) {
                 heroe->recibirDanio(enemigoActual->getAtaque());
+                heroeGolpeado = true;      // Activa el parpadeo
+                clockGolpeHeroe.restart(); // Inicia el cronómetro
+                sndEfectoHeroe.setBuffer(buffDamageTaken);
+                sndEfectoHeroe.play();
                 // El simple hecho de sobrevivir al turno recupera un poco de energia
                 //heroe->recuperarEnergia(5);
                 txtInfoCombate.setString("El enemigo te ataca!");
@@ -795,8 +794,12 @@ int main() {
                 }
             }
         }
-        if (heroe && !heroe->estaVivo()) estadoActual = GAME_OVER;
-
+        if (heroe && !heroe->estaVivo()){
+            estadoActual = GAME_OVER;
+            sndEfectoHeroe.setBuffer(buffGameOver);
+            sndEfectoHeroe.play();
+            musicaFondo.stop();
+        }
         // RENDERIZADO
         window.clear(sf::Color::Black);
         switch (estadoActual) {
@@ -820,6 +823,18 @@ int main() {
 ///======================================================
             case COMBATE_NIVEL_1:
                 window.draw(fondolv1);
+                // LÓGICA DE PARPADEO DEL HÉROE
+                if (heroeGolpeado && clockGolpeHeroe.getElapsedTime().asSeconds() >= 0.15f) {
+                    heroeGolpeado = false; // Se desactiva después de 0.15 segundos
+                }
+
+                if (heroeGolpeado) {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::Red);}
+                    else {Magobase.setColor(sf::Color::Red);} // Se pone rojo
+                } else {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::White);}
+                    else {Magobase.setColor(sf::Color::White);} // Vuelve a normalidad
+                }
                 if (seleccion == 1) {
                      if(cambioDePostura == 0){
                         window.draw(Magobase);
@@ -932,6 +947,19 @@ int main() {
 ///======================================================
             case COMBATE_NIVEL_2:
                 window.draw(fondolv2);
+                // LÓGICA DE PARPADEO DEL HÉROE
+                if (heroeGolpeado && clockGolpeHeroe.getElapsedTime().asSeconds() >= 0.15f) {
+                    heroeGolpeado = false; // Se desactiva después de 0.15 segundos
+                }
+
+                if (heroeGolpeado) {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::Red);}
+                    else {Magobase.setColor(sf::Color::Red);} // Se pone rojo
+                } else {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::White);}
+                    else {Magobase.setColor(sf::Color::White);} // Vuelve a normalidad
+                }
+
                 if (seleccion == 1) {
                      if(cambioDePostura == 0){
                         window.draw(Magobase);
@@ -1050,6 +1078,19 @@ int main() {
 
             case COMBATE_NIVEL_3:
                 window.draw(fondolv3);
+                // LÓGICA DE PARPADEO DEL HÉROE
+                if (heroeGolpeado && clockGolpeHeroe.getElapsedTime().asSeconds() >= 0.15f) {
+                    heroeGolpeado = false; // Se desactiva después de 0.15 segundos
+                }
+
+                if (heroeGolpeado) {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::Red);}
+                    else {Magobase.setColor(sf::Color::Red);} // Se pone rojo
+                } else {
+                    if(seleccion==0){Guerrerobase.setColor(sf::Color::White);}
+                    else {Magobase.setColor(sf::Color::White);} // Vuelve a normalidad
+                }
+
                 if (seleccion == 1) {
                      if(cambioDePostura == 0){
                         window.draw(Magobase);
