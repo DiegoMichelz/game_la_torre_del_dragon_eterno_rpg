@@ -378,10 +378,10 @@ int main() {
                                 if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeEspecial);
                                         sndGolpe.play();
-                                    }else{
-                                        sndMagia.setBuffer(buffFuego);
-                                        sndMagia.play();
-                                    }
+                                }else{
+                                    sndMagia.setBuffer(buffFuego);
+                                    sndMagia.play();
+                                }
                                 // Definimos el costo según el tipo de personaje
                                 int costo = 30; // Costo por defecto (Mago)
                                 if (seleccion == 0) { // Si es Guerrero
@@ -509,6 +509,13 @@ int main() {
                             bool accionRealizada = false;
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
+                                    if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeBasico);
+                                        sndGolpe.play();
+                                    }else{
+                                        sndMagia.setBuffer(buffMagia);
+                                        sndMagia.play();
+                                    }
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                     enemigoGolpeado = true;
                                     clockGolpe.restart();
@@ -523,6 +530,13 @@ int main() {
                                     cambioDePostura = 1;
                                     clock.restart();
                             }else if (event.key.code == sf::Keyboard::B){
+                                 if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeEspecial);
+                                        sndGolpe.play();
+                                }else{
+                                    sndMagia.setBuffer(buffFuego);
+                                    sndMagia.play();
+                                }
                                 // Definimos el costo según el tipo de personaje
                                 int costo = 30; // Costo por defecto (Mago)
                                 if (seleccion == 0) { // Si es Guerrero
@@ -545,6 +559,8 @@ int main() {
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
                                     if(heroe->getCuracionesRestantes() > 0){
+                                        sndCuracion.setBuffer(buffCuracion);
+                                        sndCuracion.play();
                                         heroe->curarse();
                                         heroe->usarCuracion();//restamos curaciones
                                         // Curarse también recupera energía
@@ -592,6 +608,13 @@ int main() {
                             bool accionRealizada = false;
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
+                                    if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeBasico);
+                                        sndGolpe.play();
+                                    }else{
+                                        sndMagia.setBuffer(buffMagia);
+                                        sndMagia.play();
+                                    }
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                     enemigoGolpeado = true;
                                     clockGolpe.restart();
@@ -606,6 +629,13 @@ int main() {
                                     cambioDePostura = 1;
                                     clock.restart();
                             }else if (event.key.code == sf::Keyboard::B){
+                                 if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeEspecial);
+                                        sndGolpe.play();
+                                }else{
+                                    sndMagia.setBuffer(buffFuego);
+                                    sndMagia.play();
+                                }
                                 // Definimos el costo según el tipo de personaje
                                 int costo = 30; // Costo por defecto (Mago)
                                 if (seleccion == 0) { // Si es Guerrero
@@ -628,6 +658,8 @@ int main() {
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
                                     if(heroe->getCuracionesRestantes() > 0){
+                                        sndCuracion.setBuffer(buffCuracion);
+                                        sndCuracion.play();
                                         heroe->curarse();
                                         heroe->usarCuracion();//restamos curaciones
                                         // Curarse también recupera energía
