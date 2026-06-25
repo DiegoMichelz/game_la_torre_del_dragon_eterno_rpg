@@ -58,9 +58,21 @@ int main() {
         std::cout << "Error: No se pudo cargar la música" << std::endl;
     }
     musicaFondo.setLoop(true); // Para que la intro se repita
-    musicaFondo.setVolume(80.0f);
+    musicaFondo.setVolume(45.0f);
+
+    sf::SoundBuffer buffGolpeBasico, buffGolpeEspecial, buffMagia, buffFuego, buffCuracion;
+
+    if(!buffGolpeBasico.loadFromFile("audio/espada_basico.wav")) std::cout << "Error en audio/espada_basico.wav" << std::endl;
+    if(!buffGolpeEspecial.loadFromFile("audio/golpe_pesado.wav")) std::cout << "Error en audio/golpe_pesado.wav" << std::endl;
+    if(!buffMagia.loadFromFile("audio/magia_basico.wav")) std::cout << "Error en audio/magia_basico.wav" << std::endl;
+    if(!buffFuego.loadFromFile("audio/bola_fuego.wav")) std::cout << "Error en audio/bola_fuego.wav" << std::endl;
+    if(!buffCuracion.loadFromFile("audio/curacion.wav")) std::cout << "Error en audio/curacion.wav" << std::endl;
 
 
+    sf::Sound sndGolpe, sndMagia, sndCuracion;
+
+    sndGolpe.setVolume(100.0f);
+    sndMagia.setVolume(100.0f);
     /// ------------------ DECLARACION DE TEXTURAS Y SPRITES ------------------
 
     /// ----- DECLARACION DE TEXTURAS FONDOS -----
@@ -240,10 +252,6 @@ int main() {
     posiones0.setTexture(tex0posiones);
     posiones0.setPosition(230.f,-10.f);
 
-
-
-
-
     // --- CARGA DE FUENTES Y TEXTOS ---
     sf::Font fuente;
     fuente.loadFromFile("arial.ttf");
@@ -286,7 +294,7 @@ int main() {
     txtVic.setPosition(150, 250);
     txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
-     musicaFondo.play();
+    musicaFondo.play();
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
@@ -345,6 +353,13 @@ int main() {
                             bool accionRealizada = false;
                             cambioDePostura = 0;
                             if (event.key.code == sf::Keyboard::A){
+                                    if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeBasico);
+                                        sndGolpe.play();
+                                    }else{
+                                        sndMagia.setBuffer(buffMagia);
+                                        sndMagia.play();
+                                    }
                                     enemigoActual->recibirDanio(heroe->getAtaque());
                                     enemigoGolpeado = true;
                                     clockGolpe.restart();
@@ -360,6 +375,13 @@ int main() {
                                     clock.restart();
 
                             }else if (event.key.code == sf::Keyboard::B){
+                                if(seleccion==0){
+                                        sndGolpe.setBuffer(buffGolpeEspecial);
+                                        sndGolpe.play();
+                                    }else{
+                                        sndMagia.setBuffer(buffFuego);
+                                        sndMagia.play();
+                                    }
                                 // Definimos el costo según el tipo de personaje
                                 int costo = 30; // Costo por defecto (Mago)
                                 if (seleccion == 0) { // Si es Guerrero
@@ -382,6 +404,8 @@ int main() {
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
                                     if(heroe->getCuracionesRestantes() > 0){
+                                        sndCuracion.setBuffer(buffCuracion);
+                                        sndCuracion.play();
                                         heroe->curarse();
                                         heroe->usarCuracion();//restamos curaciones
                                         // Curarse también recupera energía
@@ -706,7 +730,7 @@ int main() {
         if (cambioDePostura != 0 && clock.getElapsedTime().asSeconds() >= 1.0f) {
             cambioDePostura = 0;
         }
-        if (enemigoGolpeado && clockGolpe.getElapsedTime().asSeconds() >= 0.15f) {
+        if (enemigoGolpeado && clockGolpe.getElapsedTime().asSeconds() >= 0.25f) {
             enemigoGolpeado = false;
         }
 
@@ -720,7 +744,7 @@ int main() {
                 musicaFondo.stop();
                 if (musicaFondo.openFromFile("MusicaBatalla.wav")) {
                     musicaFondo.setLoop(true);
-                    musicaFondo.setVolume(70.0f);
+                    musicaFondo.setVolume(25.0f);
                     musicaFondo.play();
                     musicaActual = "BATALLA";
                 }
