@@ -44,6 +44,7 @@ int main() {
 
     bool seleccion; // 0 para Guerrero, 1 para Mago
     int seleccionEnem = 0;
+    int nivelDeGuardado = 0;
     int cambioDePostura;
     bool turnoJugador = true;
     bool esperandoContraataque = false;
@@ -301,6 +302,14 @@ int main() {
     txtVic.setString("¡VICTORIA! Nivel 1 Superado.\nPresione ENTER para continuar.");
 
     musicaFondo.play();
+
+    FILE *Partida;
+                    Partida = fopen("Partida.dat", "rb");
+
+                    fread(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
+                    fclose(Partida);
+
+
     // GAME LOOP
     while (window.isOpen()) {
         sf::Event event;
@@ -312,9 +321,58 @@ int main() {
                 switch (estadoActual) {
                     case MENU_PRINCIPAL:
 
+
+
                     musicaFondo.setPitch(1.0f);
 
                         if (event.key.code == sf::Keyboard::Num1) estadoActual = HISTORIA_1;
+                        if(event.key.code == sf::Keyboard::C){
+
+
+                        if (nivelDeGuardado == 1) {
+                        estadoActual = COMBATE_NIVEL_1;
+
+                        }
+                        if (nivelDeGuardado == 2) {
+                        estadoActual = COMBATE_NIVEL_2;
+
+                        enemigoActual = new SeguidordelVillano("Seguidor del Villano", 140, 18, 7, 50);
+                        seleccionEnem = 1;
+
+                        Partida = fopen("Partida.dat", "rb");
+                        fread(&seleccion, sizeof(seleccion), 1, Partida);
+
+                        if (seleccion == 0){
+                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            seleccion = 0;
+                        }else if(seleccion == 1){
+                            heroe = new Mago("Mago", 150, 15, 5, 140);
+                            seleccion = 1;
+                        }
+                        fclose(Partida);
+                        }
+
+
+                        if (nivelDeGuardado == 3) {
+                        estadoActual = COMBATE_NIVEL_3;
+                        enemigoActual = new GuerreroZombie("Guerrero zombie", 180, 18, 15, 50);
+                                seleccionEnem = 1;
+
+                                Partida = fopen("Partida.dat", "rb");
+                        fread(&seleccion, sizeof(seleccion), 1, Partida);
+
+                        if (seleccion == 0){
+                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
+                            seleccion = 0;
+                        }else if(seleccion == 1){
+                            heroe = new Mago("Mago", 150, 15, 5, 140);
+                            seleccion = 1;
+                        }
+                        fclose(Partida);
+                        }
+
+
+                        }
                         if (event.key.code == sf::Keyboard::Escape) window.close();
                         break;
                     case HISTORIA_1:
@@ -328,7 +386,7 @@ int main() {
                         break;
                     case SELECCION_PERSONAJE:
                             if (event.key.code == sf::Keyboard::G) {
-                            heroe = new Guerrero("Guerrero", 170, 20, 8, 100);
+                            heroe = new Guerrero("Guerrero", 170, 80, 8, 100);
                             seleccion = 0;
                             estadoActual = HISTORIA_GUERRERO;
 
@@ -341,6 +399,11 @@ int main() {
                             enemigoActual = new Esqueleto("Esqueleto Nivel 1", 100, 15, 5, 50);
                             seleccionEnem = 1;
                         }
+
+                            nivelDeGuardado = 1;
+                            Partida = fopen("Partida.dat", "wb");
+                            fwrite(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
+                            fclose(Partida);
                         break;
                     case HISTORIA_GUERRERO:
                             if (event.key.code == sf::Keyboard::Enter) estadoActual = COMBATE_NIVEL_1;
@@ -358,7 +421,7 @@ int main() {
 
                             bool accionRealizada = false;
                             cambioDePostura = 0;
-                            if (event.key.code == sf::Keyboard::A){
+                            if (event.key.code == sf::Keyboard::A && heroe->getVidaActual() > 0){
                                     if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeBasico);
                                         sndGolpe.play();
@@ -380,7 +443,7 @@ int main() {
                                     cambioDePostura = 1;
                                     clock.restart();
 
-                            }else if (event.key.code == sf::Keyboard::B){
+                            }else if (event.key.code == sf::Keyboard::B && heroe->getVidaActual() > 0){
                                 if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeEspecial);
                                         sndGolpe.play();
@@ -409,7 +472,7 @@ int main() {
                                     accionRealizada = false; // No consumimos turno si no puede atacar
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
-                                    if(heroe->getCuracionesRestantes() > 0){
+                                    if(heroe->getCuracionesRestantes() > 0 && heroe->getVidaActual() > 0){
                                         sndCuracion.setBuffer(buffCuracion);
                                         sndCuracion.play();
                                         heroe->curarse();
@@ -485,6 +548,11 @@ int main() {
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_2;
 
+                            nivelDeGuardado = 2;
+                            Partida = fopen("Partida.dat", "wb");
+                            fwrite(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
+                            fwrite(&seleccion, sizeof(seleccion), 1, Partida);
+                            fclose(Partida);
                         }
                         break;
 
@@ -507,11 +575,21 @@ int main() {
                             seleccionEnem = 1; // Reseteamos al índice del primer enemigo del Nivel 2
                             estadoActual = COMBATE_NIVEL_3;
 
+                            nivelDeGuardado = 3;
+                            Partida = fopen("Partida.dat", "wb");
+                            fwrite(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
+                            fwrite(&seleccion, sizeof(seleccion), 1, Partida);
+                            fclose(Partida);
+
                         }
                         break;
 
                     case VICTORIA_PISO3:
                         if (event.key.code == sf::Keyboard::Enter){
+                                nivelDeGuardado = 0;
+                            Partida = fopen("Partida.dat", "wb");
+                            fwrite(&nivelDeGuardado, sizeof(nivelDeGuardado), 1, Partida);
+                            fclose(Partida);
                             if(enemigoActual != nullptr){
                                 delete enemigoActual;
                                 enemigoActual = nullptr;
@@ -526,7 +604,7 @@ int main() {
 
                             bool accionRealizada = false;
                             cambioDePostura = 0;
-                            if (event.key.code == sf::Keyboard::A){
+                            if (event.key.code == sf::Keyboard::A && heroe->getVidaActual() > 0){
                                     if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeBasico);
                                         sndGolpe.play();
@@ -547,7 +625,7 @@ int main() {
                                     accionRealizada = true;
                                     cambioDePostura = 1;
                                     clock.restart();
-                            }else if (event.key.code == sf::Keyboard::B){
+                            }else if (event.key.code == sf::Keyboard::B && heroe->getVidaActual() > 0){
                                  if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeEspecial);
                                         sndGolpe.play();
@@ -576,7 +654,7 @@ int main() {
                                     accionRealizada = false; // No consumimos turno si no puede atacar
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
-                                    if(heroe->getCuracionesRestantes() > 0){
+                                    if(heroe->getCuracionesRestantes() > 0 && heroe->getVidaActual() > 0){
                                         sndCuracion.setBuffer(buffCuracion);
                                         sndCuracion.play();
                                         heroe->curarse();
@@ -637,7 +715,7 @@ int main() {
 
                             bool accionRealizada = false;
                             cambioDePostura = 0;
-                            if (event.key.code == sf::Keyboard::A){
+                            if (event.key.code == sf::Keyboard::A && heroe->getVidaActual() > 0){
                                     if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeBasico);
                                         sndGolpe.play();
@@ -658,7 +736,7 @@ int main() {
                                     accionRealizada = true;
                                     cambioDePostura = 1;
                                     clock.restart();
-                            }else if (event.key.code == sf::Keyboard::B){
+                            }else if (event.key.code == sf::Keyboard::B && heroe->getVidaActual() > 0){
                                  if(seleccion==0){
                                         sndGolpe.setBuffer(buffGolpeEspecial);
                                         sndGolpe.play();
@@ -687,7 +765,7 @@ int main() {
                                     accionRealizada = false; // No consumimos turno si no puede atacar
                                 }
                             }else if (event.key.code == sf::Keyboard::C){
-                                    if(heroe->getCuracionesRestantes() > 0){
+                                    if(heroe->getCuracionesRestantes() > 0 && heroe->getVidaActual() > 0){
                                         sndCuracion.setBuffer(buffCuracion);
                                         sndCuracion.play();
                                         heroe->curarse();
