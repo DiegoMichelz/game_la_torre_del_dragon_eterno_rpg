@@ -74,7 +74,8 @@ int main() {
     if(!buffGameOver.loadFromFile("audio/daniomuerte.wav")) std::cout << "Error en audio/daniomuerte.wav" << std::endl;
 
 
-    sf::Sound sndGolpe, sndMagia, sndCuracion, sndEfectoHeroe;
+    sf::Sound sndGolpe, sndMagia, sndCuracion, sndEfectoHeroe, sndSistema;
+    bool sonidoMuerteReproducido = false;
 
     sndGolpe.setVolume(100.0f);
     sndMagia.setVolume(100.0f);
@@ -450,6 +451,18 @@ int main() {
 
 
                             }
+                            if (heroe->getVidaActual() <= 0 && estadoActual != GAME_OVER) {
+                                if (!sonidoMuerteReproducido) {
+                                    sndSistema.setBuffer(buffGameOver);
+                                    sndSistema.play();
+                                    sonidoMuerteReproducido = true;
+                                }
+
+                                // 2. Si el sonido terminó, recién ahí activamos la pantalla
+                                if (sndSistema.getStatus() == sf::Sound::Stopped) {
+                                    estadoActual = GAME_OVER;
+                                }
+                            }
                         }
                         break;
 
@@ -604,6 +617,18 @@ int main() {
                                     txtInfoCombate.setString("Espero el contraataque...");
                                 }
                             }
+                            if (heroe->getVidaActual() <= 0 && estadoActual != GAME_OVER) {
+                                if (!sonidoMuerteReproducido) {
+                                    sndSistema.setBuffer(buffGameOver);
+                                    sndSistema.play();
+                                    sonidoMuerteReproducido = true;
+                                }
+
+                                // 2. Si el sonido terminó, recién ahí activamos la pantalla
+                                if (sndSistema.getStatus() == sf::Sound::Stopped) {
+                                    estadoActual = GAME_OVER;
+                                }
+                            }
                         }
                         break;
 
@@ -713,10 +738,22 @@ int main() {
                                 }
 
                             }
+                            if (heroe->getVidaActual() <= 0 && estadoActual != GAME_OVER) {
+                                if (!sonidoMuerteReproducido) {
+                                    sndSistema.setBuffer(buffGameOver);
+                                    sndSistema.play();
+                                    sonidoMuerteReproducido = true;
+                                }
+
+                                // 2. Si el sonido terminó, recién ahí activamos la pantalla
+                                if (sndSistema.getStatus() == sf::Sound::Stopped) {
+                                    estadoActual = GAME_OVER;
+                                }
+                            }
                         break;
                     }
 
-                    case GAME_OVER:{
+                    case GAME_OVER:
                         if (event.key.code == sf::Keyboard::Enter) {
 
                             if (heroe != nullptr) {
@@ -728,14 +765,16 @@ int main() {
                                 delete enemigoActual;
                                 enemigoActual = nullptr;
                             }
+                            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Enter) {
+                                sndSistema.stop();
+                                sonidoMuerteReproducido = false; // Reset de la bandera
+                                //Heroe->resetVida();       // Asegúrate de resetear vida
+                                estadoActual = MENU_PRINCIPAL;
 
-                            turnoJugador = true;
-                            esperandoContraataque = false;
-
-                            estadoActual = MENU_PRINCIPAL;
+                            }
                         }
                         break;
-                        }
+
                     }
                 }
             }
@@ -765,7 +804,7 @@ int main() {
             enemigoGolpeado = false;
         }
 
-        if (estadoActual == COMBATE_NIVEL_1 ||
+        /*if (estadoActual == COMBATE_NIVEL_1 ||
             estadoActual == COMBATE_NIVEL_2 ||
             estadoActual == COMBATE_NIVEL_3 ||
             estadoActual == VICTORIA_PISO ||
@@ -793,12 +832,32 @@ int main() {
                     musicaActual = "INTRO";
                 }
             }
-        }
-        if (heroe && !heroe->estaVivo()){
-            estadoActual = GAME_OVER;
-            sndEfectoHeroe.setBuffer(buffGameOver);
-            sndEfectoHeroe.play();
-            musicaFondo.stop();
+        }*/
+
+        bool esCombateOPerdida = (estadoActual == COMBATE_NIVEL_1 ||
+                         estadoActual == COMBATE_NIVEL_2 ||
+                         estadoActual == COMBATE_NIVEL_3 ||
+                         estadoActual == GAME_OVER);
+
+        if (esCombateOPerdida) {
+            if (musicaActual != "BATALLA") {
+                musicaFondo.stop();
+                musicaFondo.openFromFile("MusicaBatalla.wav"); // Asegúrate de la ruta
+                musicaFondo.setLoop(true);
+                musicaFondo.setVolume(25.0f);
+                musicaFondo.play();
+                musicaActual = "BATALLA";
+            }
+        } else {
+            // Si NO es combate ni derrota, es menú
+            if (musicaActual != "INTRO") {
+                musicaFondo.stop();
+                musicaFondo.openFromFile("MusicaIntro.wav"); // Asegúrate de la ruta
+                musicaFondo.setLoop(true);
+                musicaFondo.setVolume(100.0f);
+                musicaFondo.play();
+                musicaActual = "INTRO";
+            }
         }
         // RENDERIZADO
         window.clear(sf::Color::Black);
